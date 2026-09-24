@@ -26,7 +26,10 @@ void configureDependencies() {
   getIt.registerLazySingleton(() => SavePriorities(getIt()));
 
   getIt.registerFactory(
-        () => DashboardBloc(getIt()),
+        () => DashboardBloc(
+      getPerformance: getIt(),
+      getTeam: getIt(),
+    ),
   );
 
   getIt.registerFactory(

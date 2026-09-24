@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../domain/usecases/get_priorities.dart';
 import '../../../domain/usecases/save_priorities.dart';
 import 'priority_event.dart';
@@ -24,9 +25,14 @@ class PriorityBloc extends Bloc<PriorityEvent, PriorityState> {
 
     try {
       final priorities = await getPriorities();
-      emit(PriorityLoaded(priorities));
+
+      emit(
+        PriorityLoaded(priorities),
+      );
     } catch (e) {
-      emit(PriorityError(e.toString()));
+      emit(
+        PriorityError(e.toString()),
+      );
     }
   }
 
@@ -36,14 +42,22 @@ class PriorityBloc extends Bloc<PriorityEvent, PriorityState> {
       ) async {
     try {
       final priorities = await getPriorities();
+
       final selected = priorities
-          .where((priority) => event.priorityIds.contains(priority.id))
+          .where(
+            (priority) => event.priorityIds.contains(priority.id),
+      )
           .toList();
 
       await savePriorities(selected);
-      emit(PrioritySaved());
+
+      emit(
+        PrioritySaved(selected),
+      );
     } catch (e) {
-      emit(PriorityError(e.toString()));
+      emit(
+        PriorityError(e.toString()),
+      );
     }
   }
 }

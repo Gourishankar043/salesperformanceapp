@@ -1,26 +1,130 @@
 [
   {
     "id": "1",
-    "name": "Rahul Sharma",
-    "role": "Sales Executive",
-    "performance": 92
+    "name": "Adam Reynolds",
+    "role": "Account Manager",
+    "performance": 88,
+    "details": {
+      "netSalesAchieved": 465000,
+      "netSalesPlan": 527000,
+      "netSalesPercentage": 88,
+      "eventsExecuted": 2.4,
+      "eventsWithFc": 1.8,
+      "eventsPlanned": 4.6,
+      "acceptedLeads": 7.8,
+      "demoDaysPercentage": 20
+    }
   },
   {
     "id": "2",
-    "name": "Priya Nair",
-    "role": "Sales Executive",
-    "performance": 86
+    "name": "Brian Parker",
+    "role": "Account Manager",
+    "performance": 98,
+    "details": {
+      "netSalesAchieved": 510000,
+      "netSalesPlan": 520000,
+      "netSalesPercentage": 98,
+      "eventsExecuted": 0.8,
+      "eventsWithFc": 0.6,
+      "eventsPlanned": 3.2,
+      "acceptedLeads": 6.2,
+      "demoDaysPercentage": 18
+    }
   },
   {
     "id": "3",
-    "name": "Arjun Kumar",
-    "role": "Sales Executive",
-    "performance": 78
+    "name": "Daniel Foster",
+    "role": "Account Manager",
+    "performance": 231,
+    "details": {
+      "netSalesAchieved": 693000,
+      "netSalesPlan": 300000,
+      "netSalesPercentage": 231,
+      "eventsExecuted": 0.0,
+      "eventsWithFc": 0.0,
+      "eventsPlanned": 2.0,
+      "acceptedLeads": 9.1,
+      "demoDaysPercentage": 25
+    }
   },
   {
     "id": "4",
-    "name": "Sneha Patel",
-    "role": "Sales Executive",
-    "performance": 74
+    "name": "Eric Dawson",
+    "role": "Account Manager",
+    "performance": 170,
+    "details": {
+      "netSalesAchieved": 680000,
+      "netSalesPlan": 400000,
+      "netSalesPercentage": 170,
+      "eventsExecuted": 0.0,
+      "eventsWithFc": 0.0,
+      "eventsPlanned": 2.5,
+      "acceptedLeads": 8.4,
+      "demoDaysPercentage": 22
+    }
+  },
+  {
+    "id": "5",
+    "name": "Kevin Brooks",
+    "role": "Account Manager",
+    "performance": 125,
+    "details": {
+      "netSalesAchieved": 625000,
+      "netSalesPlan": 500000,
+      "netSalesPercentage": 125,
+      "eventsExecuted": 5.2,
+      "eventsWithFc": 3.7,
+      "eventsPlanned": 6.0,
+      "acceptedLeads": 8.9,
+      "demoDaysPercentage": 28
+    }
+  },
+  {
+    "id": "6",
+    "name": "Michael Carter",
+    "role": "Account Manager",
+    "performance": 77,
+    "details": {
+      "netSalesAchieved": 385000,
+      "netSalesPlan": 500000,
+      "netSalesPercentage": 77,
+      "eventsExecuted": 0.0,
+      "eventsWithFc": 0.0,
+      "eventsPlanned": 3.8,
+      "acceptedLeads": 5.4,
+      "demoDaysPercentage": 16
+    }
+  },
+  {
+    "id": "7",
+    "name": "Nathan Collins",
+    "role": "Account Manager",
+    "performance": 119,
+    "details": {
+      "netSalesAchieved": 595000,
+      "netSalesPlan": 500000,
+      "netSalesPercentage": 119,
+      "eventsExecuted": 1.2,
+      "eventsWithFc": 0.8,
+      "eventsPlanned": 4.0,
+      "acceptedLeads": 7.2,
+      "demoDaysPercentage": 21
+    }
+  },
+  {
+    "id": "8",
+    "name": "Ryan Mitchell",
+    "role": "Account Manager",
+    "performance": 72,
+    "details": {
+      "netSalesAchieved": 360000,
+      "netSalesPlan": 500000,
+      "netSalesPercentage": 72,
+      "eventsExecuted": 2.6,
+      "eventsWithFc": 1.5,
+      "eventsPlanned": 4.2,
+      "acceptedLeads": 5.8,
+      "demoDaysPercentage": 17
+    }
   }
 ]

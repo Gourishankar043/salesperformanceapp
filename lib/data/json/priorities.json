@@ -1,17 +1,32 @@
 [
   {
     "id": "1",
-    "title": "Increase Net Sales",
-    "description": "Focus on improving monthly sales performance."
+    "category": "Mastering Collaboration",
+    "title": "Leverage references & peers",
+    "description": "Use proof and peers to close."
   },
   {
     "id": "2",
-    "title": "Improve Lead Conversion",
-    "description": "Follow up with accepted leads and improve conversion."
+    "category": "Mastering Sales",
+    "title": "Win back dormant accounts",
+    "description": "Reactivate accounts before they churn."
   },
   {
     "id": "3",
-    "title": "Execute Planned Events",
-    "description": "Complete the remaining planned events."
+    "category": "Mastering Collaboration",
+    "title": "Improve cross-team handovers",
+    "description": "Fast, complete handovers to every team."
+  },
+  {
+    "id": "4",
+    "category": "Mastering Offerings",
+    "title": "Strength consumables attach",
+    "description": "Attach blades and anchors to deals."
+  },
+  {
+    "id": "5",
+    "category": "Mastering Offerings",
+    "title": "Grow fleet penetration",
+    "description": "Make Fleet part of every conversation."
   }
 ]

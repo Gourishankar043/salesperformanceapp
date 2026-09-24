@@ -12,7 +12,11 @@ class PriorityLoaded extends PriorityState {
   PriorityLoaded(this.priorities);
 }
 
-class PrioritySaved extends PriorityState {}
+class PrioritySaved extends PriorityState {
+  final List<Priority> priorities;
+
+  PrioritySaved(this.priorities);
+}
 
 class PriorityError extends PriorityState {
   final String message;

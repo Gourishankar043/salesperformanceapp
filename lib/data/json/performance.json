@@ -1,9 +1,10 @@
 {
-  "netSalesAchieved": 850000,
-  "netSalesPlan": 1000000,
-  "netSalesPercentage": 85,
-  "eventsExecuted": 18,
-  "eventsWithFc": 12,
-  "eventsPlanned": 20,
-  "acceptedLeads": 45
+  "netSalesAchieved": 465000,
+  "netSalesPlan": 527000,
+  "netSalesPercentage": 88,
+  "eventsExecuted": 2.4,
+  "eventsWithFc": 1.8,
+  "eventsPlanned": 4.6,
+  "acceptedLeads": 7.8,
+  "demoDaysPercentage": 20
 }

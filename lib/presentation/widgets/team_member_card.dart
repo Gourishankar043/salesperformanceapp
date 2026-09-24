@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_text_styles.dart';
+
 import '../../domain/entities/team_member.dart';
 
 class TeamMemberCard extends StatelessWidget {
@@ -13,30 +12,77 @@ class TeamMemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: AppColors.primary,
-          child: Text(
-            member.name[0],
-            style: const TextStyle(color: Colors.white),
+    final positive = member.performance >= 100;
+
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment:
+        CrossAxisAlignment.start,
+        children: [
+          Text(
+            member.name,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+            ),
           ),
-        ),
-        title: Text(
-          member.name,
-          style: AppTextStyles.heading,
-        ),
-        subtitle: Text(
-          member.role,
-          style: AppTextStyles.caption,
-        ),
-        trailing: Text(
-          '${member.performance.toStringAsFixed(0)}%',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: AppColors.success,
+
+          const Spacer(),
+
+          Row(
+            mainAxisAlignment:
+            MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding:
+                const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 5,
+                ),
+                decoration: BoxDecoration(
+                  color: positive
+                      ? const Color(0xFFE7F8EF)
+                      : const Color(0xFFFFE8EB),
+                  borderRadius:
+                  BorderRadius.circular(7),
+                ),
+                child: Text(
+                  '${member.performance.toStringAsFixed(0)}%',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: positive
+                        ? const Color(0xFF087A38)
+                        : const Color(0xFFA40016),
+                  ),
+                ),
+              ),
+
+              Row(
+                children: [
+                  const Icon(
+                    Icons.calendar_month,
+                    size: 22,
+                    color: Color(0xFFB8B7B2),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    '—',
+                    style: const TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),
+        ],
       ),
     );
   }

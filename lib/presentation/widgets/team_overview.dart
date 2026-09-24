@@ -1,42 +1,38 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/performance.dart';
-
-class PerformanceCard extends StatelessWidget {
-  final Performance performance;
-
-  const PerformanceCard({
-    super.key,
-    required this.performance,
-  });
+class TeamOverviewCard extends StatelessWidget {
+  const TeamOverviewCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final percentage =
-        performance.netSalesPercentage / 100;
-
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(
+        30,
+        28,
+        30,
+        24,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: Colors.black.withValues(
+              alpha: 0.04,
+            ),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+        CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment:
             MainAxisAlignment.spaceBetween,
-            crossAxisAlignment:
-            CrossAxisAlignment.start,
             children: [
               const Column(
                 crossAxisAlignment:
@@ -59,29 +55,22 @@ class PerformanceCard extends StatelessWidget {
                   ),
                 ],
               ),
-              _AchievementBadge(
-                percentage:
-                performance.netSalesPercentage,
-              ),
+              _StatusBadge(),
             ],
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 34),
 
-          Row(
+          const Row(
             mainAxisAlignment:
             MainAxisAlignment.spaceBetween,
             children: [
-              _Value(
-                value: _formatCurrency(
-                  performance.netSalesAchieved,
-                ),
+              _SalesValue(
+                value: '¥5.28M',
                 label: 'Achieved',
               ),
-              _Value(
-                value: _formatCurrency(
-                  performance.netSalesPlan,
-                ),
+              _SalesValue(
+                value: '¥4.41M',
                 label: 'Plan',
               ),
             ],
@@ -89,34 +78,14 @@ class PerformanceCard extends StatelessWidget {
 
           const SizedBox(height: 22),
 
-          _SalesProgress(
-            value: percentage.clamp(0.0, 1.0),
-          ),
+          _ProgressBar(),
         ],
       ),
     );
   }
-
-  String _formatCurrency(double value) {
-    if (value >= 1000000) {
-      return '¥${(value / 1000000).toStringAsFixed(2)}M';
-    }
-
-    if (value >= 1000) {
-      return '¥${(value / 1000).toStringAsFixed(0)}K';
-    }
-
-    return '¥${value.toStringAsFixed(0)}';
-  }
 }
 
-class _AchievementBadge extends StatelessWidget {
-  final double percentage;
-
-  const _AchievementBadge({
-    required this.percentage,
-  });
-
+class _StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -128,23 +97,23 @@ class _AchievementBadge extends StatelessWidget {
         color: const Color(0xFFE5F8ED),
         borderRadius: BorderRadius.circular(7),
       ),
-      child: Text(
-        '${percentage.toStringAsFixed(0)}% of plan',
-        style: const TextStyle(
+      child: const Text(
+        '120% Above plan',
+        style: TextStyle(
           color: Color(0xFF087A38),
           fontWeight: FontWeight.w700,
-          fontSize: 14,
+          fontSize: 15,
         ),
       ),
     );
   }
 }
 
-class _Value extends StatelessWidget {
+class _SalesValue extends StatelessWidget {
   final String value;
   final String label;
 
-  const _Value({
+  const _SalesValue({
     required this.value,
     required this.label,
   });
@@ -162,7 +131,7 @@ class _Value extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 3),
         Text(
           label,
           style: const TextStyle(
@@ -175,39 +144,22 @@ class _Value extends StatelessWidget {
   }
 }
 
-class _SalesProgress extends StatelessWidget {
-  final double value;
-
-  const _SalesProgress({
-    required this.value,
-  });
-
+class _ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SizedBox(
-          height: 12,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(7),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  color: const Color(0xFFECE9E4),
-                ),
-                FractionallySizedBox(
-                  widthFactor: value,
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    color: const Color(0xFF13B43D),
-                  ),
-                ),
-              ],
-            ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(7),
+      child: Container(
+        height: 12,
+        color: const Color(0xFFECE9E4),
+        child: FractionallySizedBox(
+          alignment: Alignment.centerLeft,
+          widthFactor: 1,
+          child: Container(
+            color: const Color(0xFF13B43D),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

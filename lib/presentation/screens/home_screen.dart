@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:salesperformanceapp/presentation/widgets/performace_card.dart';
+
 import '../../app/di/injection.dart';
 import '../bloc/dashboard/dashboard_bloc.dart';
 import '../bloc/dashboard/dashboard_event.dart';
 import '../bloc/dashboard/dashboard_state.dart';
-import '../widgets/time_period_selector.dart';
+import '../widgets/app_bottom_navigation.dart';
+import '../widgets/home_header.dart';
+import '../widgets/person_view.dart';
+import '../widgets/team_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,32 +18,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String selectedPeriod = 'Monthly';
+  bool isTeamView = true;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<DashboardBloc>()..add(LoadDashboard()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Sales Performance'),
+      create: (_) => getIt<DashboardBloc>()
+        ..add(
+          LoadDashboard(),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
+      child: Scaffold(
+        body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TimePeriodSelector(
-                selectedPeriod: selectedPeriod,
-                onChanged: (period) {
+              HomeHeader(
+                isTeamView: isTeamView,
+                onTeamSelected: () {
                   setState(() {
-                    selectedPeriod = period;
+                    isTeamView = true;
+                  });
+                },
+                onPersonSelected: () {
+                  setState(() {
+                    isTeamView = false;
                   });
                 },
               ),
-              const SizedBox(height: 20),
+
               Expanded(
-                child: BlocBuilder<DashboardBloc, DashboardState>(
+                child: BlocBuilder<
+                    DashboardBloc,
+                    DashboardState>(
                   builder: (context, state) {
                     if (state is DashboardLoading) {
                       return const Center(
@@ -48,17 +56,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
 
-                    if (state is DashboardLoaded) {
-                      return SingleChildScrollView(
-                        child: PerformanceCard(
-                          performance: state.performance,
+                    if (state is DashboardError) {
+                      return Center(
+                        child: Text(
+                          state.message,
                         ),
                       );
                     }
 
-                    if (state is DashboardError) {
-                      return Center(
-                        child: Text(state.message),
+                    if (state is DashboardLoaded) {
+                      if (isTeamView) {
+                        return TeamView(
+                          team: state.team,
+                        );
+                      }
+
+                      return PersonView(
+                        performance: state.performance,
+                        team: state.team,
                       );
                     }
 
@@ -69,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        bottomNavigationBar:
+        const AppBottomNavigation(),
       ),
     );
   }
