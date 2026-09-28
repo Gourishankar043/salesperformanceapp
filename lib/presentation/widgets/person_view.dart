@@ -81,6 +81,16 @@ class _PersonViewState extends State<PersonView> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.team.isEmpty) {
+      return const Center(
+        child: Text('No team members available'),
+      );
+    }
+
+    final selectedTeamMember = widget.team.firstWhere(
+          (member) => member.name == selectedMember,
+    );
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(
         16,
@@ -98,21 +108,15 @@ class _PersonViewState extends State<PersonView> {
             });
           },
         ),
-
         const SizedBox(height: 36),
-
         const _SectionHeader(
           title: 'AM Performance',
         ),
-
         const SizedBox(height: 18),
-
         PerformanceCard(
-          performance: widget.performance,
+          performance: selectedTeamMember.details,
         ),
-
         const SizedBox(height: 24),
-
         TimePeriodSelector(
           selectedPeriod: selectedPeriod,
           onChanged: (value) {
@@ -121,15 +125,11 @@ class _PersonViewState extends State<PersonView> {
             });
           },
         ),
-
         const SizedBox(height: 26),
-
         OperationsStandardCard(
-          performance: widget.performance,
+          performance: selectedTeamMember.details,
         ),
-
         const SizedBox(height: 28),
-
         StrategicPrioritiesSection(
           memberName: selectedMember ?? '',
           priorities: selectedPriorities,
