@@ -5,10 +5,12 @@ import 'team_member_card.dart';
 
 class TeamMemberGrid extends StatelessWidget {
   final List<TeamMember> team;
+  final ValueChanged<TeamMember> onMemberTap;
 
   const TeamMemberGrid({
     super.key,
     required this.team,
+    required this.onMemberTap,
   });
 
   @override
@@ -24,8 +26,13 @@ class TeamMemberGrid extends StatelessWidget {
         childAspectRatio: 1.35,
       ),
       itemBuilder: (context, index) {
+        final member = team[index];
+
         return TeamMemberCard(
-          member: team[index],
+          member: member,
+          onTap: () {
+            onMemberTap(member);
+          },
         );
       },
     );

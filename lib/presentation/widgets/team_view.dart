@@ -7,10 +7,12 @@ import 'time_period_selector.dart';
 
 class TeamView extends StatefulWidget {
   final List<TeamMember> team;
+  final ValueChanged<TeamMember> onMemberTap;
 
   const TeamView({
     super.key,
     required this.team,
+    required this.onMemberTap,
   });
 
   @override
@@ -36,7 +38,7 @@ class _TeamViewState extends State<TeamView> {
 
         const SizedBox(height: 36),
 
-        _SectionHeader(
+        const _SectionHeader(
           title: 'Team Overview',
         ),
 
@@ -46,7 +48,7 @@ class _TeamViewState extends State<TeamView> {
 
         const SizedBox(height: 62),
 
-        _SectionHeader(
+        const _SectionHeader(
           title: 'AM Overview',
         ),
 
@@ -69,6 +71,7 @@ class _TeamViewState extends State<TeamView> {
 
         TeamMemberGrid(
           team: widget.team,
+          onMemberTap: widget.onMemberTap,
         ),
       ],
     );

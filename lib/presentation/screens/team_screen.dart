@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../app/di/injection.dart';
+import '../../app/routes/route_names.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../domain/entities/team_member.dart';
 import '../../domain/usecases/get_team.dart';
 import '../widgets/team_member_card.dart';
 
@@ -15,8 +17,7 @@ class TeamScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Team'),
       ),
-
-      body: FutureBuilder(
+      body: FutureBuilder<List<TeamMember>>(
         future: getIt<GetTeam>()(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -37,16 +38,12 @@ class TeamScreen extends StatelessWidget {
                       size: 42,
                       color: AppColors.error,
                     ),
-
                     const SizedBox(height: 12),
-
                     const Text(
                       'Unable to load team',
                       style: AppTextStyles.heading,
                     ),
-
                     const SizedBox(height: 6),
-
                     Text(
                       snapshot.error.toString(),
                       textAlign: TextAlign.center,
@@ -104,8 +101,18 @@ class TeamScreen extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 ...members.map(
-                      (member) => TeamMemberCard(
-                    member: member,
+                      (member) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: TeamMemberCard(
+                      member: member,
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteNames.home,
+                          arguments: member,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -124,9 +131,7 @@ class TeamScreen extends StatelessWidget {
           'Your Team',
           style: AppTextStyles.sectionTitle,
         ),
-
         const SizedBox(height: 5),
-
         Text(
           '$memberCount team members',
           style: AppTextStyles.caption,
@@ -166,8 +171,7 @@ class TeamScreen extends StatelessWidget {
           Expanded(
             child: _SummaryItem(
               label: 'Avg. Performance',
-              value:
-              '${averagePerformance.toStringAsFixed(0)}%',
+              value: '${averagePerformance.toStringAsFixed(0)}%',
               icon: Icons.trending_up,
               light: true,
             ),

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppBottomNavigation extends StatelessWidget {
-  const AppBottomNavigation({super.key});
+  final int selectedIndex;
+  final ValueChanged<int> onDestinationSelected;
+
+  const AppBottomNavigation({
+    super.key,
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -9,8 +16,8 @@ class AppBottomNavigation extends StatelessWidget {
       height: 82,
       backgroundColor: Colors.white,
       elevation: 8,
-      selectedIndex: 0,
-      onDestinationSelected: (_) {},
+      selectedIndex: selectedIndex,
+      onDestinationSelected: onDestinationSelected,
       destinations: const [
         NavigationDestination(
           icon: Icon(
@@ -21,7 +28,7 @@ class AppBottomNavigation extends StatelessWidget {
             Icons.home,
             color: Color(0xFFB00016),
           ),
-          label: 'ホーム',
+          label: 'Home',
         ),
         NavigationDestination(
           icon: Icon(
@@ -32,7 +39,7 @@ class AppBottomNavigation extends StatelessWidget {
             Icons.chat_bubble,
             color: Color(0xFF666666),
           ),
-          label: 'チャットボット',
+          label: 'Chatbot',
         ),
         NavigationDestination(
           icon: Icon(
@@ -43,7 +50,7 @@ class AppBottomNavigation extends StatelessWidget {
             Icons.calendar_month,
             color: Color(0xFF666666),
           ),
-          label: 'マイデイ',
+          label: 'My Day',
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../domain/entities/performance.dart';
 import '../../domain/entities/priority.dart';
 import '../../domain/entities/team_member.dart';
@@ -11,11 +12,13 @@ import 'time_period_selector.dart';
 class PersonView extends StatefulWidget {
   final Performance performance;
   final List<TeamMember> team;
+  final TeamMember? initialMember;
 
   const PersonView({
     super.key,
     required this.performance,
     required this.team,
+    this.initialMember,
   });
 
   @override
@@ -32,7 +35,9 @@ class _PersonViewState extends State<PersonView> {
   void initState() {
     super.initState();
 
-    if (widget.team.isNotEmpty) {
+    if (widget.initialMember != null) {
+      selectedMember = widget.initialMember!.name;
+    } else if (widget.team.isNotEmpty) {
       selectedMember = widget.team.first.name;
     }
 
@@ -63,10 +68,7 @@ class _PersonViewState extends State<PersonView> {
   }
 
   Future<void> _openAddPriorities() async {
-    final result = await Navigator.pushNamed(
-      context,
-      '/add-priority',
-    );
+    final result = await Navigator.pushNamed(context, '/add-priority');
 
     if (!mounted) {
       return;
@@ -82,22 +84,20 @@ class _PersonViewState extends State<PersonView> {
   @override
   Widget build(BuildContext context) {
     if (widget.team.isEmpty) {
-      return const Center(
-        child: Text('No team members available'),
-      );
+      return const Center(child: Text('No team members available'));
     }
 
-    final selectedTeamMember = widget.team.firstWhere(
-          (member) => member.name == selectedMember,
-    );
+    TeamMember selectedTeamMember = widget.team.first;
+
+    for (final member in widget.team) {
+      if (member.name == selectedMember) {
+        selectedTeamMember = member;
+        break;
+      }
+    }
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        16,
-        12,
-        16,
-        120,
-      ),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
       children: [
         MemberSelector(
           members: widget.team,
@@ -108,15 +108,17 @@ class _PersonViewState extends State<PersonView> {
             });
           },
         ),
+
         const SizedBox(height: 36),
-        const _SectionHeader(
-          title: 'AM Performance',
-        ),
+
+        const _SectionHeader(title: 'AM Performance'),
+
         const SizedBox(height: 18),
-        PerformanceCard(
-          performance: selectedTeamMember.details,
-        ),
+
+        PerformanceCard(performance: selectedTeamMember.details),
+
         const SizedBox(height: 24),
+
         TimePeriodSelector(
           selectedPeriod: selectedPeriod,
           onChanged: (value) {
@@ -125,11 +127,13 @@ class _PersonViewState extends State<PersonView> {
             });
           },
         ),
+
         const SizedBox(height: 26),
-        OperationsStandardCard(
-          performance: selectedTeamMember.details,
-        ),
+
+        OperationsStandardCard(performance: selectedTeamMember.details),
+
         const SizedBox(height: 28),
+
         StrategicPrioritiesSection(
           memberName: selectedMember ?? '',
           priorities: selectedPriorities,
@@ -143,9 +147,7 @@ class _PersonViewState extends State<PersonView> {
 class _SectionHeader extends StatelessWidget {
   final String title;
 
-  const _SectionHeader({
-    required this.title,
-  });
+  const _SectionHeader({required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -167,21 +169,14 @@ class _SectionHeader extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.sync,
-                size: 15,
-                color: Color(0xFF777777),
-              ),
+              Icon(Icons.sync, size: 15, color: Color(0xFF777777)),
               SizedBox(width: 5),
               Flexible(
                 child: Text(
                   'Last updated: 2026-09-09',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF777777),
-                  ),
+                  style: TextStyle(fontSize: 12, color: Color(0xFF777777)),
                 ),
               ),
             ],

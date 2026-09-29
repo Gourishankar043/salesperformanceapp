@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/di/injection.dart';
+import '../../app/routes/route_names.dart';
+import '../../domain/entities/team_member.dart';
 import '../bloc/dashboard/dashboard_bloc.dart';
 import '../bloc/dashboard/dashboard_event.dart';
 import '../bloc/dashboard/dashboard_state.dart';
@@ -11,7 +13,12 @@ import '../widgets/person_view.dart';
 import '../widgets/team_view.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final TeamMember? initialMember;
+
+  const HomeScreen({
+    super.key,
+    this.initialMember,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,6 +26,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isTeamView = true;
+  int selectedIndex = 0;
+
+  TeamMember? selectedMember;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedMember = widget.initialMember;
+
+    if (widget.initialMember != null) {
+      isTeamView = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               HomeHeader(
                 isTeamView: isTeamView,
+
                 onTeamSelected: () {
                   setState(() {
                     isTeamView = true;
                   });
                 },
+
                 onPersonSelected: () {
                   setState(() {
                     isTeamView = false;
@@ -68,12 +91,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (isTeamView) {
                         return TeamView(
                           team: state.team,
+                          onMemberTap: (member) {
+                            setState(() {
+                              selectedMember = member;
+                              isTeamView = false;
+                            });
+                          },
                         );
                       }
 
                       return PersonView(
                         performance: state.performance,
                         team: state.team,
+                        initialMember: selectedMember,
                       );
                     }
 
@@ -84,8 +114,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        bottomNavigationBar:
-        const AppBottomNavigation(),
+
+        bottomNavigationBar: AppBottomNavigation(
+          selectedIndex: selectedIndex,
+          onDestinationSelected: (index) {
+            if (index == 0) {
+              setState(() {
+                selectedIndex = 0;
+              });
+            } else if (index == 1) {
+              Navigator.pushNamed(
+                context,
+                RouteNames.chatbot,
+              );
+            } else if (index == 2) {
+              Navigator.pushNamed(
+                context,
+                RouteNames.myDay,
+              );
+            }
+          },
+        ),
       ),
     );
   }

@@ -198,7 +198,7 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                     elevation: 0,
                   ),
                   child: const Text(
-                    '保存',
+                    'Save',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
