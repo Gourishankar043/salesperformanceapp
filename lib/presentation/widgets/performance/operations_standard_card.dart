@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/performance.dart';
+import '../../../domain/entities/performance.dart';
 
 class OperationsStandardCard extends StatelessWidget {
   final Performance performance;

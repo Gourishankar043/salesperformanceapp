@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/performance.dart';
-import '../../domain/entities/priority.dart';
-import '../../domain/entities/team_member.dart';
+import '../../../domain/entities/performance.dart';
+import '../../../domain/entities/priority.dart';
+import '../../../domain/entities/team_member.dart';
 import 'member_selector.dart';
-import 'operations_standard_card.dart';
-import 'performace_card.dart';
-import 'strategic_priorities_section.dart';
-import 'time_period_selector.dart';
+import '../performance/operations_standard_card.dart';
+import '../performance/performace_card.dart';
+import '../priority/strategic_priorities_section.dart';
+import '../../../core/widgets/time_period_selector.dart';
 
 class PersonView extends StatefulWidget {
   final Performance performance;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/priority.dart';
+import '../../../domain/entities/priority.dart';
 
 class PriorityCard extends StatelessWidget {
   final Priority priority;

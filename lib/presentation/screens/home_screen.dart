@@ -7,10 +7,10 @@ import '../../domain/entities/team_member.dart';
 import '../bloc/dashboard/dashboard_bloc.dart';
 import '../bloc/dashboard/dashboard_event.dart';
 import '../bloc/dashboard/dashboard_state.dart';
-import '../widgets/app_bottom_navigation.dart';
-import '../widgets/home_header.dart';
-import '../widgets/person_view.dart';
-import '../widgets/team_view.dart';
+import '../../core/widgets/app_bottom_navigation.dart';
+import '../widgets/home/home_header.dart';
+import '../widgets/home/person_view.dart';
+import '../widgets/home/team_view.dart';
 
 class HomeScreen extends StatefulWidget {
   final TeamMember? initialMember;

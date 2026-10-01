@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/priority.dart';
+import '../../../domain/entities/priority.dart';
 import 'priority_card.dart';
 
 class StrategicPrioritiesSection extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'view_toggle.dart';
+import '../../../core/widgets/view_toggle.dart';
 
 class HomeHeader extends StatelessWidget {
   final bool isTeamView;

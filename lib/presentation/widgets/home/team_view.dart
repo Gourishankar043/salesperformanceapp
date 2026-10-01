@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:salesperformanceapp/presentation/widgets/team_overview.dart';
+import 'package:salesperformanceapp/presentation/widgets/performance/team_overview.dart';
 
-import '../../domain/entities/team_member.dart';
-import 'team_member_grid.dart';
-import 'time_period_selector.dart';
+import '../../../domain/entities/team_member.dart';
+import '../team/team_member_grid.dart';
+import '../../../core/widgets/time_period_selector.dart';
 
 class TeamView extends StatefulWidget {
   final List<TeamMember> team;

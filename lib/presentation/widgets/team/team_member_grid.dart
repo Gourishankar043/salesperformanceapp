@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/team_member.dart';
+import '../../../domain/entities/team_member.dart';
 import 'team_member_card.dart';
 
 class TeamMemberGrid extends StatelessWidget {

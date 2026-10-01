@@ -6,7 +6,7 @@ import '../../domain/entities/priority.dart';
 import '../bloc/priority/priority_bloc.dart';
 import '../bloc/priority/priority_event.dart';
 import '../bloc/priority/priority_state.dart';
-import '../widgets/priority_card.dart';
+import '../widgets/priority/priority_card.dart';
 
 class AddPriorityScreen extends StatefulWidget {
   const AddPriorityScreen({super.key});

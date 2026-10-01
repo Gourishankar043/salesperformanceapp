@@ -6,7 +6,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/entities/team_member.dart';
 import '../../domain/usecases/get_team.dart';
-import '../widgets/team_member_card.dart';
+import '../widgets/team/team_member_card.dart';
 
 class TeamScreen extends StatelessWidget {
   const TeamScreen({super.key});
