@@ -8,10 +8,25 @@ import '../../domain/usecases/get_team.dart';
 import '../../domain/usecases/save_priorities.dart';
 import '../../presentation/bloc/dashboard/dashboard_bloc.dart';
 import '../../presentation/bloc/priority/priority_bloc.dart';
+import '../../core/network/api_service.dart';
+import '../../core/network/dio_client.dart';
 
 final getIt = GetIt.instance;
 
 void configureDependencies() {
+
+  getIt.registerLazySingleton<DioClient>(
+        () => DioClient(),
+  );
+
+  getIt.registerLazySingleton<ApiService>(
+        () => ApiService(getIt<DioClient>().dio),
+  );
+
+  getIt.registerLazySingleton<AppLocalDataSource>(
+        () => AppLocalDataSourceImpl(),
+  );
+
   getIt.registerLazySingleton<AppLocalDataSource>(
         () => AppLocalDataSourceImpl(),
   );
