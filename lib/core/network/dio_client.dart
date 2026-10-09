@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../config/environment.dart';
+import 'api_interceptor.dart';
 
 class DioClient {
   DioClient()
@@ -15,7 +16,9 @@ class DioClient {
         'Accept': 'application/json',
       },
     ),
-  );
+  ) {
+    dio.interceptors.add(ApiInterceptor());
+  }
 
   final Dio dio;
 }

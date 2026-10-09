@@ -5,7 +5,6 @@ import '../../presentation/screens/add_priority_screen.dart';
 import '../../presentation/screens/chatbot_screen.dart';
 import '../../presentation/screens/home_screen.dart';
 import '../../presentation/screens/my_day_screen.dart';
-import '../../presentation/screens/team_screen.dart';
 import 'route_names.dart';
 
 class AppRoutes {
@@ -20,10 +19,10 @@ class AppRoutes {
           ),
         );
 
-      case RouteNames.team:
-        return MaterialPageRoute(
-          builder: (_) => const TeamScreen(),
-        );
+      // case RouteNames.team:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const TeamScreen(),
+      //   );
 
       case RouteNames.addPriority:
         return MaterialPageRoute(

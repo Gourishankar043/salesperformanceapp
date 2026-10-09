@@ -23,9 +23,6 @@ void configureDependencies() {
         () => ApiService(getIt<DioClient>().dio),
   );
 
-  getIt.registerLazySingleton<AppLocalDataSource>(
-        () => AppLocalDataSourceImpl(),
-  );
 
   getIt.registerLazySingleton<AppLocalDataSource>(
         () => AppLocalDataSourceImpl(),
