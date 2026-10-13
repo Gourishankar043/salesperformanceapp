@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_dimensions.dart';
 import '../../core/theme/app_text_styles.dart';
 
 class ChatbotScreen extends StatelessWidget {
@@ -14,33 +15,37 @@ class ChatbotScreen extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(
+            AppDimensions.spacing24,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 72,
-                height: 72,
+                width: AppDimensions.size72,
+                height: AppDimensions.size72,
                 decoration: BoxDecoration(
                   color: AppColors.primaryLight,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radius20,
+                  ),
                 ),
                 child: const Icon(
                   Icons.chat_bubble_outline,
-                  size: 34,
+                  size: AppDimensions.size34,
                   color: AppColors.primary,
                 ),
               ),
-
-              const SizedBox(height: 20),
-
+              const SizedBox(
+                height: AppDimensions.spacing20,
+              ),
               const Text(
                 'Sales Assistant',
                 style: AppTextStyles.sectionTitle,
               ),
-
-              const SizedBox(height: 8),
-
+              const SizedBox(
+                height: AppDimensions.spacing8,
+              ),
               Text(
                 'Your sales assistant will be available here.',
                 textAlign: TextAlign.center,

@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/team_member.dart';
 
 class MemberSelector extends StatelessWidget {
@@ -20,35 +24,40 @@ class MemberSelector extends StatelessWidget {
       initialValue: selectedMember,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.white,
+        fillColor: AppColors.card,
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 17,
+          horizontal: AppDimensions.spacing20,
+          vertical: AppDimensions.spacing16 + 1,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusLarge,
+          ),
           borderSide: const BorderSide(
-            color: Color(0xFFC9C6C0),
+            color: AppColors.border,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(13),
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusLarge,
+          ),
           borderSide: const BorderSide(
-            color: Color(0xFFC9C6C0),
+            color: AppColors.border,
           ),
         ),
       ),
       icon: const Icon(
         Icons.keyboard_arrow_down,
-        size: 28,
+        size: AppDimensions.iconLarge,
+        color: AppColors.textSecondary,
       ),
       items: members.map((member) {
         return DropdownMenuItem<String>(
           value: member.name,
           child: Text(
             member.name,
-            style: const TextStyle(
-              fontSize: 18,
+            style: AppTextStyles.body.copyWith(
+              fontSize: AppDimensions.fontSize18,
             ),
           ),
         );

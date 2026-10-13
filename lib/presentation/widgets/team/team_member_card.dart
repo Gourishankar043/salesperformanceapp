@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/team_member.dart';
 
 class TeamMemberCard extends StatelessWidget {
@@ -19,63 +23,70 @@ class TeamMemberCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.all(
+          AppDimensions.spacing18,
+        ),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusLarge,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               member.name,
-              style: const TextStyle(
-                fontSize: 17,
+              style: AppTextStyles.heading.copyWith(
+                fontSize: AppDimensions.fontSize17,
                 fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
               ),
             ),
-
             const Spacer(),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 5,
+                    horizontal: AppDimensions.spacing8,
+                    vertical: AppDimensions.spacing5,
                   ),
                   decoration: BoxDecoration(
                     color: positive
-                        ? const Color(0xFFE7F8EF)
-                        : const Color(0xFFFFE8EB),
-                    borderRadius: BorderRadius.circular(7),
+                        ? AppColors.successSoft
+                        : AppColors.accentRedSoft,
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.radiusSmall,
+                    ),
                   ),
                   child: Text(
                     '${member.performance.toStringAsFixed(0)}%',
-                    style: TextStyle(
-                      fontSize: 18,
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      fontSize: AppDimensions.fontSize18,
                       fontWeight: FontWeight.w700,
                       color: positive
-                          ? const Color(0xFF087A38)
-                          : const Color(0xFFA40016),
+                          ? AppColors.successDark
+                          : AppColors.accentRedDark,
                     ),
                   ),
                 ),
-
                 Row(
                   children: [
                     const Icon(
                       Icons.calendar_month,
-                      size: 22,
-                      color: Color(0xFFB8B7B2),
+                      size: AppDimensions.iconMedium,
+                      color: AppColors.mutedBorder,
                     ),
-                    const SizedBox(width: 8),
-                    const Text(
+                    const SizedBox(
+                      width: AppDimensions.spacing8,
+                    ),
+                    Text(
                       '—',
-                      style: TextStyle(
-                        fontSize: 23,
+                      style: AppTextStyles.heading.copyWith(
+                        fontSize: AppDimensions.fontSize23,
                         fontWeight: FontWeight.w700,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ],

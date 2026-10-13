@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/performance.dart';
 
 class PerformanceCard extends StatelessWidget {
@@ -12,20 +16,19 @@ class PerformanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final percentage =
-        performance.netSalesPercentage / 100;
+    final percentage = performance.netSalesPercentage / 100;
 
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(AppDimensions.spacing24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
+            color: AppColors.shadow,
+            blurRadius: AppDimensions.spacing14,
+            offset: Offset(0, AppDimensions.spacing4),
           ),
         ],
       ),
@@ -33,62 +36,49 @@ class PerformanceCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
-            crossAxisAlignment:
-            CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Net Sales',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
+                    style: AppTextStyles.sectionTitle.copyWith(
+                      fontSize: AppDimensions.fontSize25,
+                      color: AppColors.textPrimary,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: AppDimensions.spacing4),
                   Text(
                     'YTD',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xFF777777),
+                    style: AppTextStyles.body.copyWith(
+                      fontSize: AppDimensions.fontSize18,
+                      color: AppColors.muted,
                     ),
                   ),
                 ],
               ),
               _AchievementBadge(
-                percentage:
-                performance.netSalesPercentage,
+                percentage: performance.netSalesPercentage,
               ),
             ],
           ),
-
-          const SizedBox(height: 30),
-
+          const SizedBox(height: AppDimensions.spacing30),
           Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _Value(
-                value: _formatCurrency(
-                  performance.netSalesAchieved,
-                ),
+                value: _formatCurrency(performance.netSalesAchieved),
                 label: 'Achieved',
               ),
               _Value(
-                value: _formatCurrency(
-                  performance.netSalesPlan,
-                ),
+                value: _formatCurrency(performance.netSalesPlan),
                 label: 'Plan',
               ),
             ],
           ),
-
-          const SizedBox(height: 22),
-
+          const SizedBox(height: AppDimensions.spacing22),
           _SalesProgress(
             value: percentage.clamp(0.0, 1.0),
           ),
@@ -121,19 +111,19 @@ class _AchievementBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 7,
+        horizontal: AppDimensions.spacing10,
+        vertical: AppDimensions.spacing6,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFE5F8ED),
-        borderRadius: BorderRadius.circular(7),
+        color: AppColors.successSoft,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       ),
       child: Text(
         '${percentage.toStringAsFixed(0)}% of plan',
-        style: const TextStyle(
-          color: Color(0xFF087A38),
+        style: AppTextStyles.bodyMedium.copyWith(
+          color: AppColors.successDark,
+          fontSize: AppDimensions.fontSize14,
           fontWeight: FontWeight.w700,
-          fontSize: 14,
         ),
       ),
     );
@@ -152,22 +142,21 @@ class _Value extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:
-      CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w700,
+          style: AppTextStyles.metricValue.copyWith(
+            fontSize: AppDimensions.fontSize32,
+            color: AppColors.textPrimary,
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: AppDimensions.spacing4),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 17,
-            color: Color(0xFF777777),
+          style: AppTextStyles.body.copyWith(
+            fontSize: AppDimensions.fontSize17,
+            color: AppColors.muted,
           ),
         ),
       ],
@@ -184,30 +173,26 @@ class _SalesProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SizedBox(
-          height: 12,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(7),
-            child: Stack(
-              children: [
-                Container(
-                  width: double.infinity,
-                  color: const Color(0xFFECE9E4),
-                ),
-                FractionallySizedBox(
-                  widthFactor: value,
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    color: const Color(0xFF13B43D),
-                  ),
-                ),
-              ],
+    return SizedBox(
+      height: AppDimensions.progressHeight,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              color: AppColors.progressTrack,
             ),
-          ),
-        );
-      },
+            FractionallySizedBox(
+              widthFactor: value,
+              alignment: Alignment.centerLeft,
+              child: Container(
+                color: AppColors.success,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

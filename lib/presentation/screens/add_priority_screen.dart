@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/di/injection.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_dimensions.dart';
+import '../../core/theme/app_text_styles.dart';
 import '../../domain/entities/priority.dart';
 import '../bloc/priority/priority_bloc.dart';
 import '../bloc/priority/priority_event.dart';
@@ -21,14 +24,13 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<PriorityBloc>()..add(LoadPriorities()),
+      create: (_) =>
+      getIt<PriorityBloc>()
+        ..add(LoadPriorities()),
       child: BlocConsumer<PriorityBloc, PriorityState>(
         listener: (context, state) {
           if (state is PrioritySaved) {
-            Navigator.pop(
-              context,
-              state.priorities,
-            );
+            Navigator.pop(context, state.priorities);
           }
 
           if (state is PriorityError) {
@@ -53,8 +55,8 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
               body: Center(
                 child: Text(
                   state.message,
-                  style: const TextStyle(
-                    color: Colors.red,
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.error,
                   ),
                 ),
               ),
@@ -62,10 +64,7 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
           }
 
           if (state is PriorityLoaded) {
-            return _buildScreen(
-              context,
-              state.priorities,
-            );
+            return _buildScreen(context, state.priorities);
           }
 
           return const Scaffold(
@@ -76,22 +75,20 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
     );
   }
 
-  Widget _buildScreen(
-      BuildContext context,
-      List<Priority> priorities,
-      ) {
+  Widget _buildScreen(BuildContext context,
+      List<Priority> priorities,) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FA),
+      backgroundColor: AppColors.backgroundAlt,
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(
-                  16,
-                  18,
-                  16,
-                  20,
+                  AppDimensions.spacing16,
+                  AppDimensions.spacing18,
+                  AppDimensions.spacing16,
+                  AppDimensions.spacing20,
                 ),
                 children: [
                   Row(
@@ -99,83 +96,65 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                       const Expanded(
                         child: Text(
                           'Add strategic priorities',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF202124),
-                          ),
+                          style: AppTextStyles.pageTitle,
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                        onTap: () => Navigator.pop(context),
                         child: Container(
-                          width: 42,
-                          height: 42,
+                          width: AppDimensions.size42,
+                          height: AppDimensions.size42,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.white,
+                            color: AppColors.white,
                             border: Border.all(
-                              color: const Color(0xFFD8D8D8),
+                              color: AppColors.borderStrong,
                             ),
                           ),
                           child: const Icon(
                             Icons.close,
-                            color: Color(0xFF202124),
+                            color: AppColors.textPrimary,
+                            size: AppDimensions.iconLarge,
                           ),
                         ),
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 14),
-
+                  const SizedBox(height: AppDimensions.spacing14),
                   const Text(
                     'These priorities generate relevant coaching actions for each field ride.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      height: 1.4,
-                      color: Color(0xFF777777),
-                    ),
+                    style: AppTextStyles.subtitle,
                   ),
+                  const SizedBox(height: AppDimensions.spacing24),
+                  ...priorities.map((priority) {
+                    final isSelected =
+                    _selectedPriorityIds.contains(priority.id);
 
-                  const SizedBox(height: 24),
-
-                  ...priorities.map(
-                        (priority) {
-                      final isSelected =
-                      _selectedPriorityIds.contains(priority.id);
-
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 12,
-                        ),
-                        child: PriorityCard(
-                          priority: priority,
-                          isSelected: isSelected,
-                          onTap: () {
-                            _togglePriority(priority);
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: AppDimensions.spacing12,
+                      ),
+                      child: PriorityCard(
+                        priority: priority,
+                        isSelected: isSelected,
+                        onTap: () => _togglePriority(priority),
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
-
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(
-                16,
-                12,
-                16,
-                16,
+                AppDimensions.spacing16,
+                AppDimensions.spacing12,
+                AppDimensions.spacing16,
+                AppDimensions.spacing16,
               ),
-              color: const Color(0xFFF7F8FA),
+              color: AppColors.backgroundAlt,
               child: SizedBox(
-                height: 52,
+                height: AppDimensions.spacing52,
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: _selectedPriorityIds.isEmpty
@@ -188,21 +167,19 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE0001B),
-                    disabledBackgroundColor:
-                    const Color(0xFFD9D9D9),
-                    foregroundColor: Colors.white,
+                    backgroundColor: AppColors.accentRed,
+                    disabledBackgroundColor: AppColors.borderStrong,
+                    foregroundColor: AppColors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(26),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusPill,
+                      ),
                     ),
                     elevation: 0,
                   ),
                   child: const Text(
                     'Save',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: AppTextStyles.button,
                   ),
                 ),
               ),

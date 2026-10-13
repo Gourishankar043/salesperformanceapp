@@ -1,4 +1,9 @@
+
 import 'package:flutter/material.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/priority.dart';
 import 'priority_card.dart';
 
@@ -22,84 +27,82 @@ class StrategicPrioritiesSection extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
                 'Strategic Priorities',
-                style: TextStyle(
-                  fontSize: 30,
+                style: AppTextStyles.sectionTitle.copyWith(
+                  fontSize: AppDimensions.fontSize30,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF202124),
+                  color: AppColors.textPrimary,
                 ),
               ),
             ),
             GestureDetector(
               onTap: onEdit,
               child: Container(
-                width: 54,
-                height: 54,
+                width: AppDimensions.spacing54,
+                height: AppDimensions.spacing54,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.card,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: const Color(0xFFD8D8D8),
+                    color: AppColors.borderStrong,
                   ),
                 ),
                 child: const Icon(
                   Icons.edit,
-                  size: 22,
-                  color: Color(0xFF202124),
+                  size: AppDimensions.iconMedium,
+                  color: AppColors.textPrimary,
                 ),
               ),
             ),
           ],
         ),
-
-        const SizedBox(height: 4),
-
+        const SizedBox(height: AppDimensions.spacing4),
         Text(
           '$memberName\'s focus for the next 3–6 months.',
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF777777),
+          style: AppTextStyles.body.copyWith(
+            fontSize: AppDimensions.fontSize14,
+            color: AppColors.muted,
           ),
         ),
-
-        const SizedBox(height: 18),
-
+        const SizedBox(height: AppDimensions.spacing18),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.fromLTRB(
-            14,
-            20,
-            14,
-            16,
+            AppDimensions.spacing14,
+            AppDimensions.spacing20,
+            AppDimensions.spacing14,
+            AppDimensions.spacing16,
           ),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
+            color: AppColors.card,
+            borderRadius: BorderRadius.circular(
+              AppDimensions.radiusLarge,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Today's Priorities",
-                style: TextStyle(
-                  fontSize: 20,
+                style: AppTextStyles.heading.copyWith(
+                  fontSize: AppDimensions.fontSize20,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF202124),
+                  color: AppColors.textPrimary,
                 ),
               ),
-
-              const SizedBox(height: 18),
-
+              const SizedBox(height: AppDimensions.spacing18),
               if (priorities.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppDimensions.spacing20,
+                  ),
                   child: Center(
                     child: Text(
                       'No priorities selected',
-                      style: TextStyle(
-                        color: Color(0xFF888888),
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.textLight,
                       ),
                     ),
                   ),
@@ -117,15 +120,14 @@ class StrategicPrioritiesSection extends StatelessWidget {
                           isSelected: true,
                           onTap: () {},
                         ),
-
                         if (index != priorities.length - 1)
                           const Padding(
                             padding: EdgeInsets.symmetric(
-                              vertical: 12,
+                              vertical: AppDimensions.spacing12,
                             ),
                             child: Divider(
                               height: 1,
-                              color: Color(0xFFE0E0E0),
+                              color: AppColors.border,
                             ),
                           ),
                       ],
@@ -135,15 +137,17 @@ class StrategicPrioritiesSection extends StatelessWidget {
             ],
           ),
         ),
-
-        const SizedBox(height: 18),
-
+        const SizedBox(height: AppDimensions.spacing18),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(18),
+          padding: const EdgeInsets.all(
+            AppDimensions.spacing18,
+          ),
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
+            color: AppColors.card,
+            borderRadius: BorderRadius.circular(
+              AppDimensions.radiusLarge,
+            ),
           ),
           child: Row(
             children: [
@@ -153,35 +157,28 @@ class StrategicPrioritiesSection extends StatelessWidget {
                   children: [
                     Text(
                       'Priorities History',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF202124),
-                      ),
+                      style: AppTextStyles.heading,
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppDimensions.spacing10),
                     Text(
                       '3 Open     0 Completed',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF777777),
-                      ),
+                      style: AppTextStyles.body,
                     ),
                   ],
                 ),
               ),
               Container(
-                width: 40,
-                height: 40,
+                width: AppDimensions.spacing40,
+                height: AppDimensions.spacing40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: const Color(0xFFD8D8D8),
+                    color: AppColors.borderStrong,
                   ),
                 ),
                 child: const Icon(
                   Icons.chevron_right,
-                  color: Color(0xFF777777),
+                  color: AppColors.textSecondary,
                 ),
               ),
             ],

@@ -1,4 +1,9 @@
+
 import 'package:flutter/material.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 
 class TeamOverviewCard extends StatelessWidget {
   const TeamOverviewCard({super.key});
@@ -8,62 +13,63 @@ class TeamOverviewCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(
-        30,
-        28,
-        30,
-        24,
+        AppDimensions.spacing30,
+        AppDimensions.spacing28,
+        AppDimensions.spacing30,
+        AppDimensions.spacing24,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusCard,
+        ),
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withValues(
-              alpha: 0.04,
+            color: AppColors.shadow,
+            blurRadius: AppDimensions.spacing14,
+            offset: Offset(
+              0,
+              AppDimensions.spacing4,
             ),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Column(
-        crossAxisAlignment:
-        CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Net Sales',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
+                    style: AppTextStyles.sectionTitle.copyWith(
+                      fontSize: AppDimensions.fontSize25,
+                      color: AppColors.textPrimary,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(
+                    height: AppDimensions.spacing4,
+                  ),
                   Text(
                     'YTD',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Color(0xFF777777),
+                    style: AppTextStyles.body.copyWith(
+                      fontSize: AppDimensions.fontSize18,
+                      color: AppColors.muted,
                     ),
                   ),
                 ],
               ),
-              _StatusBadge(),
+              const _StatusBadge(),
             ],
           ),
-
-          const SizedBox(height: 34),
-
+          const SizedBox(
+            height: AppDimensions.spacing34,
+          ),
           const Row(
-            mainAxisAlignment:
-            MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _SalesValue(
                 value: '¥5.28M',
@@ -75,10 +81,10 @@ class TeamOverviewCard extends StatelessWidget {
               ),
             ],
           ),
-
-          const SizedBox(height: 22),
-
-          _ProgressBar(),
+          const SizedBox(
+            height: AppDimensions.spacing22,
+          ),
+          const _ProgressBar(),
         ],
       ),
     );
@@ -86,23 +92,27 @@ class TeamOverviewCard extends StatelessWidget {
 }
 
 class _StatusBadge extends StatelessWidget {
+  const _StatusBadge();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 7,
+        horizontal: AppDimensions.spacing10,
+        vertical: AppDimensions.spacing6,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFE5F8ED),
-        borderRadius: BorderRadius.circular(7),
+        color: AppColors.successSoft,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusSmall,
+        ),
       ),
-      child: const Text(
+      child: Text(
         '120% Above plan',
-        style: TextStyle(
-          color: Color(0xFF087A38),
+        style: AppTextStyles.bodyMedium.copyWith(
+          color: AppColors.successDark,
           fontWeight: FontWeight.w700,
-          fontSize: 15,
+          fontSize: AppDimensions.fontSize15,
         ),
       ),
     );
@@ -121,22 +131,24 @@ class _SalesValue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:
-      CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 32,
+          style: AppTextStyles.metricValue.copyWith(
+            fontSize: AppDimensions.fontSize32,
             fontWeight: FontWeight.w700,
+            color: AppColors.textPrimary,
           ),
         ),
-        const SizedBox(height: 3),
+        const SizedBox(
+          height: AppDimensions.spacing3,
+        ),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 17,
-            color: Color(0xFF777777),
+          style: AppTextStyles.body.copyWith(
+            fontSize: AppDimensions.fontSize17,
+            color: AppColors.muted,
           ),
         ),
       ],
@@ -145,18 +157,22 @@ class _SalesValue extends StatelessWidget {
 }
 
 class _ProgressBar extends StatelessWidget {
+  const _ProgressBar();
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(7),
+      borderRadius: BorderRadius.circular(
+        AppDimensions.radiusSmall,
+      ),
       child: Container(
-        height: 12,
-        color: const Color(0xFFECE9E4),
+        height: AppDimensions.progressHeight,
+        color: AppColors.progressTrack,
         child: FractionallySizedBox(
           alignment: Alignment.centerLeft,
           widthFactor: 1,
           child: Container(
-            color: const Color(0xFF13B43D),
+            color: AppColors.success,
           ),
         ),
       ),

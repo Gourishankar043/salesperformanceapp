@@ -1,4 +1,8 @@
+
 import 'package:flutter/material.dart';
+
+import '../theme/app_colors.dart';
+import '../theme/app_dimensions.dart';
 
 class AppBottomNavigation extends StatelessWidget {
   final int selectedIndex;
@@ -13,8 +17,8 @@ class AppBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
-      height: 82,
-      backgroundColor: Colors.white,
+      height: AppDimensions.navigationHeight,
+      backgroundColor: AppColors.card,
       elevation: 8,
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
@@ -22,33 +26,33 @@ class AppBottomNavigation extends StatelessWidget {
         NavigationDestination(
           icon: Icon(
             Icons.home_outlined,
-            color: Color(0xFF666666),
+            color: AppColors.textSecondary,
           ),
           selectedIcon: Icon(
             Icons.home,
-            color: Color(0xFFB00016),
+            color: AppColors.accentRed,
           ),
           label: 'Home',
         ),
         NavigationDestination(
           icon: Icon(
             Icons.chat_bubble_outline,
-            color: Color(0xFF666666),
+            color: AppColors.textSecondary,
           ),
           selectedIcon: Icon(
             Icons.chat_bubble,
-            color: Color(0xFF666666),
+            color: AppColors.textSecondary,
           ),
           label: 'Chatbot',
         ),
         NavigationDestination(
           icon: Icon(
             Icons.calendar_month_outlined,
-            color: Color(0xFF666666),
+            color: AppColors.textSecondary,
           ),
           selectedIcon: Icon(
             Icons.calendar_month,
-            color: Color(0xFF666666),
+            color: AppColors.textSecondary,
           ),
           label: 'My Day',
         ),

@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/priority.dart';
 
 class PriorityCard extends StatelessWidget {
@@ -20,17 +24,23 @@ class PriorityCard extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.only(
+          bottom: AppDimensions.spacing12,
+        ),
+        padding: const EdgeInsets.all(
+          AppDimensions.spacing16,
+        ),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFFFFF1F3)
-              : Colors.white,
-          borderRadius: BorderRadius.circular(14),
+              ? AppColors.accentRedLight
+              : AppColors.card,
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusLarge,
+          ),
           border: Border.all(
             color: isSelected
-                ? const Color(0xFFE0001B)
-                : const Color(0xFFE5E5E5),
+                ? AppColors.accentRed
+                : AppColors.border,
             width: isSelected ? 1.5 : 1,
           ),
         ),
@@ -45,57 +55,60 @@ class PriorityCard extends StatelessWidget {
                     category: priority.category,
                     isSelected: isSelected,
                   ),
-                  const SizedBox(height: 10),
-
+                  const SizedBox(
+                    height: AppDimensions.spacing10,
+                  ),
                   Text(
                     priority.title,
-                    style: TextStyle(
-                      fontSize: 16,
+                    style: AppTextStyles.heading.copyWith(
+                      fontSize: AppDimensions.fontSize16,
                       fontWeight: FontWeight.w600,
                       color: isSelected
-                          ? const Color(0xFFE0001B)
-                          : const Color(0xFF202020),
+                          ? AppColors.accentRed
+                          : AppColors.textPrimary,
                     ),
                   ),
-
-                  const SizedBox(height: 5),
-
+                  const SizedBox(
+                    height: AppDimensions.spacing5,
+                  ),
                   Text(
                     priority.description,
-                    style: TextStyle(
-                      fontSize: 13,
+                    style: AppTextStyles.body.copyWith(
+                      fontSize: AppDimensions.fontSize13,
                       height: 1.35,
                       color: isSelected
-                          ? const Color(0xFFE0001B)
-                          : const Color(0xFF666666),
+                          ? AppColors.accentRed
+                          : AppColors.textSecondary,
                     ),
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(width: 12),
-
+            const SizedBox(
+              width: AppDimensions.spacing12,
+            ),
             Container(
-              width: 24,
-              height: 24,
+              width: AppDimensions.size24,
+              height: AppDimensions.size24,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFFE0001B)
+                    ? AppColors.accentRed
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.radiusSmall,
+                ),
                 border: Border.all(
                   color: isSelected
-                      ? const Color(0xFFE0001B)
-                      : const Color(0xFFBDBDBD),
+                      ? AppColors.accentRed
+                      : AppColors.mutedBorder,
                   width: 1.5,
                 ),
               ),
               child: isSelected
                   ? const Icon(
                 Icons.check,
-                size: 17,
-                color: Colors.white,
+                size: AppDimensions.size17,
+                color: AppColors.white,
               )
                   : null,
             ),
@@ -119,23 +132,25 @@ class _CategoryChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 9,
-        vertical: 5,
+        horizontal: AppDimensions.spacing9,
+        vertical: AppDimensions.spacing5,
       ),
       decoration: BoxDecoration(
         color: isSelected
-            ? const Color(0xFFFFDDE2)
-            : const Color(0xFFF2F2F2),
-        borderRadius: BorderRadius.circular(6),
+            ? AppColors.accentRedTint
+            : AppColors.chipBackground,
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusSmall,
+        ),
       ),
       child: Text(
         category,
-        style: TextStyle(
-          fontSize: 11,
+        style: AppTextStyles.caption.copyWith(
+          fontSize: AppDimensions.fontSize11,
           fontWeight: FontWeight.w500,
           color: isSelected
-              ? const Color(0xFFE0001B)
-              : const Color(0xFF555555),
+              ? AppColors.accentRed
+              : AppColors.mutedDark,
         ),
       ),
     );

@@ -1,9 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:salesperformanceapp/presentation/widgets/performance/team_overview.dart';
 
-import '../../../domain/entities/team_member.dart';
-import '../team/team_member_grid.dart';
+import 'package:flutter/material.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/time_period_selector.dart';
+import '../../../domain/entities/team_member.dart';
+import '../performance/team_overview.dart';
+import '../team/team_member_grid.dart';
 
 class TeamView extends StatefulWidget {
   final List<TeamMember> team;
@@ -25,35 +29,28 @@ class _TeamViewState extends State<TeamView> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 110),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.spacing16,
+        AppDimensions.spacing12,
+        AppDimensions.spacing16,
+        AppDimensions.spacing110,
+      ),
       children: [
-        const Text(
+        Text(
           'My team',
-          style: TextStyle(
-            fontSize: 36,
+          style: AppTextStyles.title.copyWith(
+            fontSize: AppDimensions.fontSize36,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF202124),
+            color: AppColors.textPrimary,
           ),
         ),
-
-        const SizedBox(height: 36),
-
-        const _SectionHeader(
-          title: 'Team Overview',
-        ),
-
-        const SizedBox(height: 16),
-
+        const SizedBox(height: AppDimensions.spacing36),
+        const _SectionHeader(title: 'Team Overview'),
+        const SizedBox(height: AppDimensions.spacing16),
         const TeamOverviewCard(),
-
-        const SizedBox(height: 62),
-
-        const _SectionHeader(
-          title: 'AM Overview',
-        ),
-
-        const SizedBox(height: 16),
-
+        const SizedBox(height: AppDimensions.spacing62),
+        const _SectionHeader(title: 'AM Overview'),
+        const SizedBox(height: AppDimensions.spacing16),
         TimePeriodSelector(
           selectedPeriod: selectedPeriod,
           onChanged: (period) {
@@ -62,13 +59,9 @@ class _TeamViewState extends State<TeamView> {
             });
           },
         ),
-
-        const SizedBox(height: 18),
-
+        const SizedBox(height: AppDimensions.spacing18),
         const _OverviewLegend(),
-
-        const SizedBox(height: 18),
-
+        const SizedBox(height: AppDimensions.spacing18),
         TeamMemberGrid(
           team: widget.team,
           onMemberTap: widget.onMemberTap,
@@ -93,34 +86,32 @@ class _SectionHeader extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 30,
+            style: AppTextStyles.sectionTitle.copyWith(
+              fontSize: AppDimensions.fontSize30,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF202124),
+              color: AppColors.textPrimary,
             ),
           ),
         ),
-
-        const SizedBox(width: 8),
-
-        const Flexible(
+        const SizedBox(width: AppDimensions.spacing8),
+        Flexible(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
+              const Icon(
                 Icons.sync,
-                size: 15,
-                color: Color(0xFF777777),
+                size: AppDimensions.iconSmall,
+                color: AppColors.muted,
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: AppDimensions.spacing5),
               Flexible(
                 child: Text(
                   'Last updated: 2026-09-09',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF777777),
+                  style: AppTextStyles.caption.copyWith(
+                    fontSize: AppDimensions.fontSize12,
+                    color: AppColors.muted,
                   ),
                 ),
               ),
@@ -139,64 +130,58 @@ class _OverviewLegend extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text(
+        Text(
           '%',
-          style: TextStyle(
-            fontSize: 14,
+          style: AppTextStyles.bodyMedium.copyWith(
+            fontSize: AppDimensions.fontSize14,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF666666),
+            color: AppColors.textSecondary,
           ),
         ),
-
-        const SizedBox(width: 7),
-
-        const Text(
+        const SizedBox(width: AppDimensions.spacing7),
+        Text(
           'Plan YTD',
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF666666),
+          style: AppTextStyles.caption.copyWith(
+            fontSize: AppDimensions.fontSize13,
+            color: AppColors.textSecondary,
           ),
         ),
-
-        const SizedBox(width: 18),
-
+        const SizedBox(width: AppDimensions.spacing18),
         const Icon(
           Icons.calendar_month_outlined,
-          size: 15,
-          color: Color(0xFF666666),
+          size: AppDimensions.iconSmall,
+          color: AppColors.textSecondary,
         ),
-
-        const SizedBox(width: 6),
-
-        const Flexible(
+        const SizedBox(width: AppDimensions.spacing6),
+        Flexible(
           child: Text(
             'Executed Events / day',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 13,
-              color: Color(0xFF666666),
+            style: AppTextStyles.caption.copyWith(
+              fontSize: AppDimensions.fontSize13,
+              color: AppColors.textSecondary,
             ),
           ),
         ),
-
-        const SizedBox(width: 12),
-
+        const SizedBox(width: AppDimensions.spacing12),
         Container(
           padding: const EdgeInsets.symmetric(
-            horizontal: 9,
-            vertical: 5,
+            horizontal: AppDimensions.spacing9,
+            vertical: AppDimensions.spacing5,
           ),
           decoration: BoxDecoration(
-            color: const Color(0xFFF0F0F0),
-            borderRadius: BorderRadius.circular(7),
+            color: AppColors.chipBackground,
+            borderRadius: BorderRadius.circular(
+              AppDimensions.radiusSmall,
+            ),
           ),
-          child: const Text(
+          child: Text(
             'MTD',
-            style: TextStyle(
-              fontSize: 12,
+            style: AppTextStyles.caption.copyWith(
+              fontSize: AppDimensions.fontSize12,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF333333),
+              color: AppColors.mutedDark,
             ),
           ),
         ),

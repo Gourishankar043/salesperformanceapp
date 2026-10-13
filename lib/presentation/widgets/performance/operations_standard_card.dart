@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/performance.dart';
 
 class OperationsStandardCard extends StatelessWidget {
@@ -13,116 +17,108 @@ class OperationsStandardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.all(AppDimensions.spacing22),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
                   'Op. Standards',
-                  style: TextStyle(
-                    fontSize: 23,
+                  style: AppTextStyles.heading.copyWith(
+                    fontSize: AppDimensions.fontSize23,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF202124),
+                    color: AppColors.textPrimary,
                   ),
                 ),
               ),
-
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
+                  horizontal: AppDimensions.spacing10,
+                  vertical: AppDimensions.spacing8,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFDDE2),
-                  borderRadius: BorderRadius.circular(7),
+                  color: AppColors.accentRedTint,
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusSmall,
+                  ),
                 ),
                 child: Text(
                   '${performance.demoDaysPercentage.toStringAsFixed(0)}% Demo days',
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: AppTextStyles.caption.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFFE0001B),
+                    color: AppColors.accentRed,
                   ),
                 ),
               ),
             ],
           ),
-
-          const SizedBox(height: 28),
-
+          const SizedBox(height: AppDimensions.spacing28),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 performance.eventsExecuted.toStringAsFixed(1),
-                style: const TextStyle(
-                  fontSize: 38,
+                style: AppTextStyles.metricValue.copyWith(
+                  fontSize: AppDimensions.fontSize38,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF111111),
+                  color: AppColors.textPrimary,
                 ),
               ),
-
-              const SizedBox(width: 7),
-
-              const Padding(
-                padding: EdgeInsets.only(bottom: 6),
+              const SizedBox(width: AppDimensions.spacing6),
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: AppDimensions.spacing6,
+                ),
                 child: Text(
                   'Events Executed',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color(0xFF777777),
+                  style: AppTextStyles.body.copyWith(
+                    fontSize: AppDimensions.fontSize18,
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ),
             ],
           ),
-
-          const SizedBox(height: 18),
-
+          const SizedBox(height: AppDimensions.spacing18),
           _PerformanceBar(
             eventsWithFc: performance.eventsWithFc,
             eventsExecuted: performance.eventsExecuted,
             eventsPlanned: performance.eventsPlanned,
           ),
-
-          const SizedBox(height: 12),
-
+          const SizedBox(height: AppDimensions.spacing12),
           _Legend(
             eventsWithFc: performance.eventsWithFc,
             eventsExecuted: performance.eventsExecuted,
             eventsPlanned: performance.eventsPlanned,
           ),
-
-          const SizedBox(height: 24),
-
+          const SizedBox(height: AppDimensions.spacing24),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 performance.acceptedLeads.toStringAsFixed(1),
-                style: const TextStyle(
-                  fontSize: 32,
+                style: AppTextStyles.metricValue.copyWith(
+                  fontSize: AppDimensions.fontSize32,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF111111),
+                  color: AppColors.textPrimary,
                 ),
               ),
-
-              const SizedBox(width: 8),
-
-              const Padding(
-                padding: EdgeInsets.only(bottom: 4),
+              const SizedBox(width: AppDimensions.spacing8),
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: AppDimensions.spacing4,
+                ),
                 child: Text(
                   'Accepted Leads',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF777777),
+                  style: AppTextStyles.body.copyWith(
+                    fontSize: AppDimensions.fontSize16,
+                    color: AppColors.textSecondary,
                   ),
                 ),
               ),
@@ -159,30 +155,28 @@ class _PerformanceBar extends StatelessWidget {
     (1 - executedWidth).clamp(0.0, 1.0);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(6),
+      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
       child: SizedBox(
-        height: 13,
+        height: AppDimensions.progressHeight,
         width: double.infinity,
         child: Row(
           children: [
             Expanded(
               flex: (fcWidth * 100).round().clamp(1, 100),
               child: Container(
-                color: const Color(0xFFE0001B),
+                color: AppColors.accentRed,
               ),
             ),
-
             Expanded(
               flex: (executedWidth * 100).round().clamp(1, 100),
               child: Container(
-                color: const Color(0xFFED9CAE),
+                color: AppColors.progressSecondary,
               ),
             ),
-
             Expanded(
               flex: (remainingWidth * 100).round().clamp(1, 100),
               child: Container(
-                color: const Color(0xFFD7CFBE),
+                color: AppColors.progressPlanned,
               ),
             ),
           ],
@@ -206,19 +200,19 @@ class _Legend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 14,
-      runSpacing: 8,
+      spacing: AppDimensions.spacing14,
+      runSpacing: AppDimensions.spacing8,
       children: [
         _LegendItem(
-          color: const Color(0xFFE0001B),
+          color: AppColors.accentRed,
           text: 'w/ FC ${eventsWithFc.toStringAsFixed(1)}',
         ),
         _LegendItem(
-          color: const Color(0xFFED9CAE),
+          color: AppColors.progressSecondary,
           text: 'Executed ${eventsExecuted.toStringAsFixed(1)}',
         ),
         _LegendItem(
-          color: const Color(0xFFD7CFBE),
+          color: AppColors.progressPlanned,
           text: 'Planned ${eventsPlanned.toStringAsFixed(1)}',
         ),
       ],
@@ -241,19 +235,21 @@ class _LegendItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 9,
-          height: 9,
+          width: AppDimensions.size9,
+          height: AppDimensions.size9,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(2),
+            borderRadius: BorderRadius.circular(
+              AppDimensions.spacing2,
+            ),
           ),
         ),
-        const SizedBox(width: 5),
+        const SizedBox(width: AppDimensions.spacing6),
         Text(
           text,
-          style: const TextStyle(
-            fontSize: 11,
-            color: Color(0xFF666666),
+          style: AppTextStyles.caption.copyWith(
+            fontSize: AppDimensions.fontSize11,
+            color: AppColors.textSecondary,
           ),
         ),
       ],

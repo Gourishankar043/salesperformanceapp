@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
 import '../../../core/widgets/view_toggle.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -18,14 +21,13 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        30,
-        12,
-        30,
-        16,
+        AppDimensions.spacing30,
+        AppDimensions.spacing12,
+        AppDimensions.spacing30,
+        AppDimensions.spacing16,
       ),
       child: Row(
-        mainAxisAlignment:
-        MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildLeftControls(),
           ViewToggle(
@@ -40,15 +42,15 @@ class HomeHeader extends StatelessWidget {
 
   Widget _buildLeftControls() {
     return Container(
-      height: 58,
+      height: AppDimensions.spacing62 - AppDimensions.spacing4,
       padding: const EdgeInsets.symmetric(
-        horizontal: 14,
+        horizontal: AppDimensions.spacing14,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        color: AppColors.card,
+        borderRadius: BorderRadius.circular(AppDimensions.spacing30),
         border: Border.all(
-          color: const Color(0xFFE4DED4),
+          color: AppColors.border,
         ),
       ),
       child: Row(
@@ -57,16 +59,16 @@ class HomeHeader extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(
               Icons.menu,
-              size: 30,
-              color: Color(0xFF555555),
+              size: AppDimensions.size30,
+              color: AppColors.mutedDark,
             ),
           ),
           IconButton(
             onPressed: () {},
             icon: const Icon(
               Icons.support_agent,
-              size: 30,
-              color: Color(0xFF555555),
+              size: AppDimensions.size30,
+              color: AppColors.mutedDark,
             ),
           ),
         ],

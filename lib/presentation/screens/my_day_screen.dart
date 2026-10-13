@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_dimensions.dart';
 import '../../core/theme/app_text_styles.dart';
 
 class MyDayScreen extends StatelessWidget {
@@ -13,7 +14,9 @@ class MyDayScreen extends StatelessWidget {
         title: const Text('My Day'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(
+          AppDimensions.spacing16,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,24 +24,28 @@ class MyDayScreen extends StatelessWidget {
               'Today',
               style: AppTextStyles.sectionTitle,
             ),
-
-            const SizedBox(height: 6),
-
+            const SizedBox(
+              height: AppDimensions.spacing6,
+            ),
             Text(
               'Your daily sales activities will appear here.',
               style: AppTextStyles.body.copyWith(
                 color: AppColors.textSecondary,
               ),
             ),
-
-            const SizedBox(height: 24),
-
+            const SizedBox(
+              height: AppDimensions.spacing24,
+            ),
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(
+                AppDimensions.spacing20,
+              ),
               decoration: BoxDecoration(
                 color: AppColors.card,
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.radius14,
+                ),
                 border: Border.all(
                   color: AppColors.border,
                 ),
@@ -47,19 +54,19 @@ class MyDayScreen extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.today_outlined,
-                    size: 40,
+                    size: AppDimensions.size40,
                     color: AppColors.primary,
                   ),
-
-                  SizedBox(height: 12),
-
+                  SizedBox(
+                    height: AppDimensions.spacing12,
+                  ),
                   Text(
                     'No activities for today',
                     style: AppTextStyles.heading,
                   ),
-
-                  SizedBox(height: 6),
-
+                  SizedBox(
+                    height: AppDimensions.spacing6,
+                  ),
                   Text(
                     'Your planned activities will appear here.',
                     textAlign: TextAlign.center,

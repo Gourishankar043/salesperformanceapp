@@ -1,13 +1,17 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_dimensions.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../core/widgets/time_period_selector.dart';
 import '../../../domain/entities/performance.dart';
 import '../../../domain/entities/priority.dart';
 import '../../../domain/entities/team_member.dart';
-import 'member_selector.dart';
 import '../performance/operations_standard_card.dart';
 import '../performance/performace_card.dart';
 import '../priority/strategic_priorities_section.dart';
-import '../../../core/widgets/time_period_selector.dart';
+import 'member_selector.dart';
 
 class PersonView extends StatefulWidget {
   final Performance performance;
@@ -84,7 +88,14 @@ class _PersonViewState extends State<PersonView> {
   @override
   Widget build(BuildContext context) {
     if (widget.team.isEmpty) {
-      return const Center(child: Text('No team members available'));
+      return Center(
+        child: Text(
+          'No team members available',
+          style: AppTextStyles.body.copyWith(
+            color: AppColors.textSecondary,
+          ),
+        ),
+      );
     }
 
     TeamMember selectedTeamMember = widget.team.first;
@@ -97,7 +108,12 @@ class _PersonViewState extends State<PersonView> {
     }
 
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.spacing16,
+        AppDimensions.spacing12,
+        AppDimensions.spacing16,
+        AppDimensions.spacing120,
+      ),
       children: [
         MemberSelector(
           members: widget.team,
@@ -108,17 +124,13 @@ class _PersonViewState extends State<PersonView> {
             });
           },
         ),
-
-        const SizedBox(height: 36),
-
+        const SizedBox(height: AppDimensions.spacing36),
         const _SectionHeader(title: 'AM Performance'),
-
-        const SizedBox(height: 18),
-
-        PerformanceCard(performance: selectedTeamMember.details),
-
-        const SizedBox(height: 24),
-
+        const SizedBox(height: AppDimensions.spacing18),
+        PerformanceCard(
+          performance: selectedTeamMember.details,
+        ),
+        const SizedBox(height: AppDimensions.spacing24),
         TimePeriodSelector(
           selectedPeriod: selectedPeriod,
           onChanged: (value) {
@@ -127,13 +139,11 @@ class _PersonViewState extends State<PersonView> {
             });
           },
         ),
-
-        const SizedBox(height: 26),
-
-        OperationsStandardCard(performance: selectedTeamMember.details),
-
-        const SizedBox(height: 28),
-
+        const SizedBox(height: AppDimensions.spacing26),
+        OperationsStandardCard(
+          performance: selectedTeamMember.details,
+        ),
+        const SizedBox(height: AppDimensions.spacing28),
         StrategicPrioritiesSection(
           memberName: selectedMember ?? '',
           priorities: selectedPriorities,
@@ -147,7 +157,9 @@ class _PersonViewState extends State<PersonView> {
 class _SectionHeader extends StatelessWidget {
   final String title;
 
-  const _SectionHeader({required this.title});
+  const _SectionHeader({
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -157,26 +169,33 @@ class _SectionHeader extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 30,
+            style: AppTextStyles.sectionTitle.copyWith(
+              fontSize: AppDimensions.fontSize30,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF202124),
+              color: AppColors.textPrimary,
             ),
           ),
         ),
-        const SizedBox(width: 8),
-        const Flexible(
+        const SizedBox(width: AppDimensions.spacing8),
+        Flexible(
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.sync, size: 15, color: Color(0xFF777777)),
-              SizedBox(width: 5),
+              const Icon(
+                Icons.sync,
+                size: AppDimensions.iconSmall,
+                color: AppColors.muted,
+              ),
+              const SizedBox(width: AppDimensions.spacing5),
               Flexible(
                 child: Text(
                   'Last updated: 2026-09-09',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 12, color: Color(0xFF777777)),
+                  style: AppTextStyles.caption.copyWith(
+                    fontSize: AppDimensions.fontSize12,
+                    color: AppColors.muted,
+                  ),
                 ),
               ),
             ],

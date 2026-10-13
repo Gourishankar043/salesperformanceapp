@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_dimensions.dart';
 import '../../../domain/entities/team_member.dart';
 import 'team_member_card.dart';
 
@@ -21,8 +23,8 @@ class TeamMemberGrid extends StatelessWidget {
       itemCount: team.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: AppDimensions.spacing10,
+        mainAxisSpacing: AppDimensions.spacing10,
         childAspectRatio: 1.35,
       ),
       itemBuilder: (context, index) {

@@ -1,4 +1,8 @@
+
 import 'package:flutter/material.dart';
+
+import '../theme/app_colors.dart';
+import '../theme/app_dimensions.dart';
 
 class ViewToggle extends StatelessWidget {
   final bool isTeamView;
@@ -15,11 +19,11 @@ class ViewToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 62,
-      padding: const EdgeInsets.all(4),
+      height: AppDimensions.spacing62,
+      padding: const EdgeInsets.all(AppDimensions.spacing4),
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F0EF),
-        borderRadius: BorderRadius.circular(32),
+        color: AppColors.chipBackground,
+        borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
       ),
       child: Row(
         children: [
@@ -55,20 +59,16 @@ class _ToggleButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 62,
-        height: 54,
+        width: AppDimensions.spacing62,
+        height: AppDimensions.spacing54,
         decoration: BoxDecoration(
-          color: selected
-              ? const Color(0xFFE0001B)
-              : Colors.transparent,
+          color: selected ? AppColors.accentRed : Colors.transparent,
           shape: BoxShape.circle,
         ),
         child: Icon(
           icon,
-          size: 25,
-          color: selected
-              ? Colors.white
-              : const Color(0xFF555555),
+          size: AppDimensions.size25,
+          color: selected ? AppColors.white : AppColors.mutedDark,
         ),
       ),
     );

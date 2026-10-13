@@ -1,52 +1,100 @@
-import 'package:flutter/material.dart';
-import 'app_colors.dart';
+  import 'package:flutter/material.dart';
 
-class AppTextStyles {
-  static const title = TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.w700,
-    color: AppColors.textPrimary,
-  );
+  import 'app_colors.dart';
+  import 'app_dimensions.dart';
 
-  static const sectionTitle = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w700,
-    color: AppColors.textPrimary,
-  );
+  class AppTextStyles {
+    AppTextStyles._();
 
-  static const heading = TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
-  );
+    // Page and section headings
+    static const TextStyle title = TextStyle(
+      fontSize: AppDimensions.fontSize22,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textPrimary,
+    );
 
-  static const body = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: AppColors.textPrimary,
-  );
+    static const TextStyle pageTitle = TextStyle(
+      fontSize: AppDimensions.fontSize36,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textPrimary,
+    );
 
-  static const bodyMedium = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textPrimary,
-  );
+    static const TextStyle sectionTitle = TextStyle(
+      fontSize: AppDimensions.fontSize18,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textPrimary,
+    );
 
-  static const caption = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: AppColors.textSecondary,
-  );
+    static const TextStyle heading = TextStyle(
+      fontSize: AppDimensions.fontSize16,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textPrimary,
+    );
 
-  static const metricValue = TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.w700,
-    color: AppColors.textPrimary,
-  );
+    static const TextStyle subtitle = TextStyle(
+      fontSize: AppDimensions.fontSize14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textSecondary,
+    );
 
-  static const metricLabel = TextStyle(
-    fontSize: 13,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textSecondary,
-  );
-}
+    // Body text
+    static const TextStyle body = TextStyle(
+      fontSize: AppDimensions.fontSize14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textPrimary,
+      height: AppDimensions.lineHeightBody,
+    );
+
+    static const TextStyle bodyMedium = TextStyle(
+      fontSize: AppDimensions.fontSize14,
+      fontWeight: FontWeight.w500,
+      color: AppColors.textPrimary,
+    );
+
+    static const TextStyle bodyLarge = TextStyle(
+      fontSize: AppDimensions.fontSize16,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textPrimary,
+    );
+
+    static const TextStyle caption = TextStyle(
+      fontSize: AppDimensions.fontSize12,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textSecondary,
+    );
+
+    static const TextStyle label = TextStyle(
+      fontSize: AppDimensions.fontSize12,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textSecondary,
+    );
+
+    // Performance metrics
+    static const TextStyle metricValue = TextStyle(
+      fontSize: AppDimensions.fontSize22,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textPrimary,
+    );
+
+    static const TextStyle metricLarge = TextStyle(
+      fontSize: AppDimensions.fontSize32,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textPrimary,
+    );
+
+    static const TextStyle metricLabel = TextStyle(
+      fontSize: AppDimensions.fontSize13,
+      fontWeight: FontWeight.w500,
+      color: AppColors.textSecondary,
+    );
+    static const TextStyle button = TextStyle(
+      fontSize: AppDimensions.fontSize14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.white,
+    );
+    static const TextStyle dropdownItem = TextStyle(
+      fontSize: AppDimensions.fontSize14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textPrimary,
+    );
+  }
