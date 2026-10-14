@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -19,7 +18,7 @@ class AppBottomNavigation extends StatelessWidget {
     return NavigationBar(
       height: AppDimensions.navigationHeight,
       backgroundColor: AppColors.card,
-      elevation: 8,
+      elevation: AppDimensions.spacing8,
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
       destinations: const [

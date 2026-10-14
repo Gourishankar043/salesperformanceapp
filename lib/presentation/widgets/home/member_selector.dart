@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -27,7 +26,7 @@ class MemberSelector extends StatelessWidget {
         fillColor: AppColors.card,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.spacing20,
-          vertical: AppDimensions.spacing16 + 1,
+          vertical: AppDimensions.spacing17,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(

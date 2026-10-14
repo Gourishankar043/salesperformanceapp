@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -26,14 +25,14 @@ class TimePeriodSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppDimensions.spacing40,
+      padding: const EdgeInsets.all(
+        AppDimensions.spacing4,
+      ),
       decoration: BoxDecoration(
         color: AppColors.chipBackground,
         borderRadius: BorderRadius.circular(
           AppDimensions.radiusPill,
         ),
-      ),
-      padding: const EdgeInsets.all(
-        AppDimensions.spacing4,
       ),
       child: Row(
         children: periods.map((period) {

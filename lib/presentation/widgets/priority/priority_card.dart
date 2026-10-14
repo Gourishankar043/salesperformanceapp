@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/priority.dart';
+import 'priority_category_chip.dart';
 
 class PriorityCard extends StatelessWidget {
   final Priority priority;
@@ -51,7 +51,7 @@ class PriorityCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _CategoryChip(
+                  PriorityCategoryChip(
                     category: priority.category,
                     isSelected: isSelected,
                   ),
@@ -113,44 +113,6 @@ class PriorityCard extends StatelessWidget {
                   : null,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CategoryChip extends StatelessWidget {
-  final String category;
-  final bool isSelected;
-
-  const _CategoryChip({
-    required this.category,
-    required this.isSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.spacing9,
-        vertical: AppDimensions.spacing5,
-      ),
-      decoration: BoxDecoration(
-        color: isSelected
-            ? AppColors.accentRedTint
-            : AppColors.chipBackground,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusSmall,
-        ),
-      ),
-      child: Text(
-        category,
-        style: AppTextStyles.caption.copyWith(
-          fontSize: AppDimensions.fontSize11,
-          fontWeight: FontWeight.w500,
-          color: isSelected
-              ? AppColors.accentRed
-              : AppColors.mutedDark,
         ),
       ),
     );

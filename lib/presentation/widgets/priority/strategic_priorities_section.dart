@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/widgets/app_card.dart';
 import '../../../domain/entities/priority.dart';
 import 'priority_card.dart';
 
@@ -67,20 +68,16 @@ class StrategicPrioritiesSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppDimensions.spacing18),
-        Container(
-          width: double.infinity,
+
+        // Reusable card for today's priorities.
+        AppCard(
           padding: const EdgeInsets.fromLTRB(
             AppDimensions.spacing14,
             AppDimensions.spacing20,
             AppDimensions.spacing14,
             AppDimensions.spacing16,
           ),
-          decoration: BoxDecoration(
-            color: AppColors.card,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusLarge,
-            ),
-          ),
+          borderRadius: AppDimensions.radiusLarge,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -138,17 +135,13 @@ class StrategicPrioritiesSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppDimensions.spacing18),
-        Container(
-          width: double.infinity,
+
+        // Reusable card for priorities history.
+        AppCard(
           padding: const EdgeInsets.all(
             AppDimensions.spacing18,
           ),
-          decoration: BoxDecoration(
-            color: AppColors.card,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusLarge,
-            ),
-          ),
+          borderRadius: AppDimensions.radiusLarge,
           child: Row(
             children: [
               const Expanded(

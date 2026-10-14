@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_dimensions.dart';
@@ -22,10 +21,11 @@ class TeamMemberGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: team.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: AppDimensions.teamMemberGridColumns,
         crossAxisSpacing: AppDimensions.spacing10,
         mainAxisSpacing: AppDimensions.spacing10,
-        childAspectRatio: 1.35,
+        childAspectRatio:
+        AppDimensions.teamMemberGridChildAspectRatio,
       ),
       itemBuilder: (context, index) {
         final member = team[index];

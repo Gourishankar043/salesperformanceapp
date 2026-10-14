@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_status_badge.dart';
 import '../../../domain/entities/team_member.dart';
 
 class TeamMemberCard extends StatelessWidget {
@@ -22,16 +24,11 @@ class TeamMemberCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AppCard(
         padding: const EdgeInsets.all(
           AppDimensions.spacing18,
         ),
-        decoration: BoxDecoration(
-          color: AppColors.card,
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusLarge,
-          ),
-        ),
+        borderRadius: AppDimensions.radiusLarge,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,28 +44,18 @@ class TeamMemberCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                AppStatusBadge(
+                  label: '${member.performance.toStringAsFixed(0)}%',
+                  backgroundColor: positive
+                      ? AppColors.successSoft
+                      : AppColors.accentRedSoft,
+                  textColor: positive
+                      ? AppColors.successDark
+                      : AppColors.accentRedDark,
+                  fontSize: AppDimensions.fontSize18,
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.spacing8,
                     vertical: AppDimensions.spacing5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: positive
-                        ? AppColors.successSoft
-                        : AppColors.accentRedSoft,
-                    borderRadius: BorderRadius.circular(
-                      AppDimensions.radiusSmall,
-                    ),
-                  ),
-                  child: Text(
-                    '${member.performance.toStringAsFixed(0)}%',
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      fontSize: AppDimensions.fontSize18,
-                      fontWeight: FontWeight.w700,
-                      color: positive
-                          ? AppColors.successDark
-                          : AppColors.accentRedDark,
-                    ),
                   ),
                 ),
                 Row(

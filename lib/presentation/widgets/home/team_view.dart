@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/widgets/app_section_header.dart';
 import '../../../core/widgets/time_period_selector.dart';
 import '../../../domain/entities/team_member.dart';
 import '../performance/team_overview.dart';
@@ -45,11 +46,15 @@ class _TeamViewState extends State<TeamView> {
           ),
         ),
         const SizedBox(height: AppDimensions.spacing36),
-        const _SectionHeader(title: 'Team Overview'),
+        const AppSectionHeader(
+          title: 'Team Overview',
+        ),
         const SizedBox(height: AppDimensions.spacing16),
         const TeamOverviewCard(),
         const SizedBox(height: AppDimensions.spacing62),
-        const _SectionHeader(title: 'AM Overview'),
+        const AppSectionHeader(
+          title: 'AM Overview',
+        ),
         const SizedBox(height: AppDimensions.spacing16),
         TimePeriodSelector(
           selectedPeriod: selectedPeriod,
@@ -65,58 +70,6 @@ class _TeamViewState extends State<TeamView> {
         TeamMemberGrid(
           team: widget.team,
           onMemberTap: widget.onMemberTap,
-        ),
-      ],
-    );
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  final String title;
-
-  const _SectionHeader({
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(
-          child: Text(
-            title,
-            style: AppTextStyles.sectionTitle.copyWith(
-              fontSize: AppDimensions.fontSize30,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textPrimary,
-            ),
-          ),
-        ),
-        const SizedBox(width: AppDimensions.spacing8),
-        Flexible(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.sync,
-                size: AppDimensions.iconSmall,
-                color: AppColors.muted,
-              ),
-              const SizedBox(width: AppDimensions.spacing5),
-              Flexible(
-                child: Text(
-                  'Last updated: 2026-09-09',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.caption.copyWith(
-                    fontSize: AppDimensions.fontSize12,
-                    color: AppColors.muted,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ],
     );

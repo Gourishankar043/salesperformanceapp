@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/widgets/app_card.dart';
+import '../../../core/widgets/app_status_badge.dart';
 import '../../../domain/entities/performance.dart';
+import 'legend_item.dart';
 
 class OperationsStandardCard extends StatelessWidget {
   final Performance performance;
@@ -16,12 +19,8 @@ class OperationsStandardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AppCard(
       padding: const EdgeInsets.all(AppDimensions.spacing22),
-      decoration: BoxDecoration(
-        color: AppColors.card,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusCard),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,23 +36,14 @@ class OperationsStandardCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              AppStatusBadge(
+                label:
+                '${performance.demoDaysPercentage.toStringAsFixed(0)}% Demo days',
+                backgroundColor: AppColors.accentRedTint,
+                textColor: AppColors.accentRed,
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.spacing10,
                   vertical: AppDimensions.spacing8,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.accentRedTint,
-                  borderRadius: BorderRadius.circular(
-                    AppDimensions.radiusSmall,
-                  ),
-                ),
-                child: Text(
-                  '${performance.demoDaysPercentage.toStringAsFixed(0)}% Demo days',
-                  style: AppTextStyles.caption.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.accentRed,
-                  ),
                 ),
               ),
             ],
@@ -92,7 +82,7 @@ class OperationsStandardCard extends StatelessWidget {
             eventsPlanned: performance.eventsPlanned,
           ),
           const SizedBox(height: AppDimensions.spacing12),
-          _Legend(
+          _PerformanceLegend(
             eventsWithFc: performance.eventsWithFc,
             eventsExecuted: performance.eventsExecuted,
             eventsPlanned: performance.eventsPlanned,
@@ -143,19 +133,21 @@ class _PerformanceBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double total = eventsPlanned <= 0 ? 1 : eventsPlanned;
+    final total = eventsPlanned <= 0 ? 1.0 : eventsPlanned;
 
-    final double fcWidth =
+    final fcWidth =
     (eventsWithFc / total).clamp(0.0, 1.0);
 
-    final double executedWidth =
+    final executedWidth =
     (eventsExecuted / total).clamp(0.0, 1.0);
 
-    final double remainingWidth =
+    final remainingWidth =
     (1 - executedWidth).clamp(0.0, 1.0);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(AppDimensions.radiusSmall),
+      borderRadius: BorderRadius.circular(
+        AppDimensions.radiusSmall,
+      ),
       child: SizedBox(
         height: AppDimensions.progressHeight,
         width: double.infinity,
@@ -163,19 +155,19 @@ class _PerformanceBar extends StatelessWidget {
           children: [
             Expanded(
               flex: (fcWidth * 100).round().clamp(1, 100),
-              child: Container(
+              child: ColoredBox(
                 color: AppColors.accentRed,
               ),
             ),
             Expanded(
               flex: (executedWidth * 100).round().clamp(1, 100),
-              child: Container(
+              child: ColoredBox(
                 color: AppColors.progressSecondary,
               ),
             ),
             Expanded(
               flex: (remainingWidth * 100).round().clamp(1, 100),
-              child: Container(
+              child: ColoredBox(
                 color: AppColors.progressPlanned,
               ),
             ),
@@ -186,12 +178,12 @@ class _PerformanceBar extends StatelessWidget {
   }
 }
 
-class _Legend extends StatelessWidget {
+class _PerformanceLegend extends StatelessWidget {
   final double eventsWithFc;
   final double eventsExecuted;
   final double eventsPlanned;
 
-  const _Legend({
+  const _PerformanceLegend({
     required this.eventsWithFc,
     required this.eventsExecuted,
     required this.eventsPlanned,
@@ -203,54 +195,17 @@ class _Legend extends StatelessWidget {
       spacing: AppDimensions.spacing14,
       runSpacing: AppDimensions.spacing8,
       children: [
-        _LegendItem(
+        LegendItem(
           color: AppColors.accentRed,
           text: 'w/ FC ${eventsWithFc.toStringAsFixed(1)}',
         ),
-        _LegendItem(
+        LegendItem(
           color: AppColors.progressSecondary,
           text: 'Executed ${eventsExecuted.toStringAsFixed(1)}',
         ),
-        _LegendItem(
+        LegendItem(
           color: AppColors.progressPlanned,
           text: 'Planned ${eventsPlanned.toStringAsFixed(1)}',
-        ),
-      ],
-    );
-  }
-}
-
-class _LegendItem extends StatelessWidget {
-  final Color color;
-  final String text;
-
-  const _LegendItem({
-    required this.color,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: AppDimensions.size9,
-          height: AppDimensions.size9,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.spacing2,
-            ),
-          ),
-        ),
-        const SizedBox(width: AppDimensions.spacing6),
-        Text(
-          text,
-          style: AppTextStyles.caption.copyWith(
-            fontSize: AppDimensions.fontSize11,
-            color: AppColors.textSecondary,
-          ),
         ),
       ],
     );

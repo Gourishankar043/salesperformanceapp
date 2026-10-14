@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -21,10 +20,10 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        AppDimensions.spacing30,
-        AppDimensions.spacing12,
-        AppDimensions.spacing30,
-        AppDimensions.spacing16,
+        AppDimensions.homeHeaderHorizontalPadding,
+        AppDimensions.homeHeaderTopPadding,
+        AppDimensions.homeHeaderHorizontalPadding,
+        AppDimensions.homeHeaderBottomPadding,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,13 +41,15 @@ class HomeHeader extends StatelessWidget {
 
   Widget _buildLeftControls() {
     return Container(
-      height: AppDimensions.spacing62 - AppDimensions.spacing4,
+      height: AppDimensions.homeHeaderControlHeight,
       padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.spacing14,
+        horizontal: AppDimensions.homeHeaderControlPadding,
       ),
       decoration: BoxDecoration(
         color: AppColors.card,
-        borderRadius: BorderRadius.circular(AppDimensions.spacing30),
+        borderRadius: BorderRadius.circular(
+          AppDimensions.homeHeaderControlRadius,
+        ),
         border: Border.all(
           color: AppColors.border,
         ),
@@ -59,7 +60,7 @@ class HomeHeader extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(
               Icons.menu,
-              size: AppDimensions.size30,
+              size: AppDimensions.homeHeaderIconSize,
               color: AppColors.mutedDark,
             ),
           ),
@@ -67,7 +68,7 @@ class HomeHeader extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(
               Icons.support_agent,
-              size: AppDimensions.size30,
+              size: AppDimensions.homeHeaderIconSize,
               color: AppColors.mutedDark,
             ),
           ),

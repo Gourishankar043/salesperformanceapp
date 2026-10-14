@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -20,19 +19,23 @@ class ViewToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppDimensions.spacing62,
-      padding: const EdgeInsets.all(AppDimensions.spacing4),
+      padding: const EdgeInsets.all(
+        AppDimensions.spacing4,
+      ),
       decoration: BoxDecoration(
         color: AppColors.chipBackground,
-        borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
+        borderRadius: BorderRadius.circular(
+          AppDimensions.radiusPill,
+        ),
       ),
       child: Row(
         children: [
-          _ToggleButton(
+          ViewToggleButton(
             icon: Icons.groups,
             selected: isTeamView,
             onTap: onTeamSelected,
           ),
-          _ToggleButton(
+          ViewToggleButton(
             icon: Icons.person,
             selected: !isTeamView,
             onTap: onPersonSelected,
@@ -43,12 +46,13 @@ class ViewToggle extends StatelessWidget {
   }
 }
 
-class _ToggleButton extends StatelessWidget {
+class ViewToggleButton extends StatelessWidget {
   final IconData icon;
   final bool selected;
   final VoidCallback onTap;
 
-  const _ToggleButton({
+  const ViewToggleButton({
+    super.key,
     required this.icon,
     required this.selected,
     required this.onTap,
@@ -62,13 +66,17 @@ class _ToggleButton extends StatelessWidget {
         width: AppDimensions.spacing62,
         height: AppDimensions.spacing54,
         decoration: BoxDecoration(
-          color: selected ? AppColors.accentRed : Colors.transparent,
+          color: selected
+              ? AppColors.accentRed
+              : Colors.transparent,
           shape: BoxShape.circle,
         ),
         child: Icon(
           icon,
           size: AppDimensions.size25,
-          color: selected ? AppColors.white : AppColors.mutedDark,
+          color: selected
+              ? AppColors.white
+              : AppColors.mutedDark,
         ),
       ),
     );

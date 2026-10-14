@@ -132,6 +132,10 @@ class AppDimensions {
   static const double shadowOpacity = 0.04;
   // Spacing scale
   static const double spacing9 = 9;
+  static const double spacing17 = 17;
+
+  static const int teamMemberGridColumns = 2;
+  static const double teamMemberGridChildAspectRatio = 1.35;
 
 // Component sizes
   static const double size9 = 9;
