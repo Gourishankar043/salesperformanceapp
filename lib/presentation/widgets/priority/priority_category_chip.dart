@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class PriorityCategoryChip extends StatelessWidget {
   final String category;
@@ -14,8 +15,21 @@ class PriorityCategoryChip extends StatelessWidget {
     this.isSelected = false,
   });
 
+  String _localizedCategory(AppLocalizations l10n) {
+    switch (category) {
+      case 'Mastering Collaboration':
+        return l10n.masteringCollaboration;
+      case 'Mastering Sales':
+        return l10n.masteringSales;
+      default:
+        return category;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppDimensions.spacing9,
@@ -30,7 +44,7 @@ class PriorityCategoryChip extends StatelessWidget {
         ),
       ),
       child: Text(
-        category,
+        _localizedCategory(l10n),
         style: AppTextStyles.caption.copyWith(
           fontSize: AppDimensions.fontSize11,
           fontWeight: FontWeight.w500,

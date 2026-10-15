@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -20,7 +21,11 @@ class MemberSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      initialValue: selectedMember,
+      initialValue: members.any(
+            (member) => member.name == selectedMember,
+      )
+          ? selectedMember
+          : null,
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.card,

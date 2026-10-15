@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/di/injection.dart';
 import '../../app/routes/route_names.dart';
+import '../../core/widgets/app_bottom_navigation.dart';
 import '../../domain/entities/team_member.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../bloc/dashboard/dashboard_bloc.dart';
 import '../bloc/dashboard/dashboard_event.dart';
 import '../bloc/dashboard/dashboard_state.dart';
-import '../../core/widgets/app_bottom_navigation.dart';
 import '../widgets/home/home_header.dart';
 import '../widgets/home/person_view.dart';
 import '../widgets/home/team_view.dart';
@@ -44,35 +45,29 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<DashboardBloc>()
-        ..add(
-          LoadDashboard(),
-        ),
+      create: (_) => getIt<DashboardBloc>()..add(LoadDashboard()),
       child: Scaffold(
         body: SafeArea(
           child: Column(
             children: [
               HomeHeader(
                 isTeamView: isTeamView,
-
                 onTeamSelected: () {
                   setState(() {
                     isTeamView = true;
                   });
                 },
-
                 onPersonSelected: () {
                   setState(() {
                     isTeamView = false;
                   });
                 },
               ),
-
               Expanded(
-                child: BlocBuilder<
-                    DashboardBloc,
-                    DashboardState>(
+                child: BlocBuilder<DashboardBloc, DashboardState>(
                   builder: (context, state) {
+                    final l10n = AppLocalizations.of(context)!;
+
                     if (state is DashboardLoading) {
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -82,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (state is DashboardError) {
                       return Center(
                         child: Text(
-                          state.message,
+                          l10n.dashboardError,
                         ),
                       );
                     }
@@ -114,7 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-
         bottomNavigationBar: AppBottomNavigation(
           selectedIndex: selectedIndex,
           onDestinationSelected: (index) {

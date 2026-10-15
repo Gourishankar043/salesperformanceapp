@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_dimensions.dart';
+import '../../../../core/localization/locale_controller.dart';
+import '../../../../core/theme/app_dimensions.dart';
+import '../../../../l10n/generated/app_localizations.dart';
 import '../../../core/widgets/view_toggle.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -18,59 +19,49 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        AppDimensions.homeHeaderHorizontalPadding,
-        AppDimensions.homeHeaderTopPadding,
-        AppDimensions.homeHeaderHorizontalPadding,
-        AppDimensions.homeHeaderBottomPadding,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.homeHeaderHorizontalPadding,
+        vertical: AppDimensions.homeHeaderBottomPadding,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildLeftControls(),
+          PopupMenuButton<String>(
+            tooltip: l10n.selectLanguage,
+            icon: const Icon(Icons.language),
+            onSelected: (languageCode) {
+              LocaleController.instance.changeLocale(languageCode);
+            },
+            itemBuilder: (context) {
+              final languages = <String, String>{
+                'en': l10n.english,
+                'de': l10n.german,
+                'fr': l10n.french,
+                'it': l10n.italian,
+                'es': l10n.spanish,
+                'zh': l10n.chinese,
+                'ja': l10n.japanese,
+                'ko': l10n.korean,
+                'ms': l10n.malay,
+                'pt': l10n.portuguese,
+              };
+
+              return languages.entries.map((entry) {
+                return PopupMenuItem<String>(
+                  value: entry.key,
+                  child: Text(entry.value),
+                );
+              }).toList();
+            },
+          ),
+
           ViewToggle(
             isTeamView: isTeamView,
             onTeamSelected: onTeamSelected,
             onPersonSelected: onPersonSelected,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLeftControls() {
-    return Container(
-      height: AppDimensions.homeHeaderControlHeight,
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.homeHeaderControlPadding,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.card,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.homeHeaderControlRadius,
-        ),
-        border: Border.all(
-          color: AppColors.border,
-        ),
-      ),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-              size: AppDimensions.homeHeaderIconSize,
-              color: AppColors.mutedDark,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.support_agent,
-              size: AppDimensions.homeHeaderIconSize,
-              color: AppColors.mutedDark,
-            ),
           ),
         ],
       ),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -7,6 +6,7 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/app_status_badge.dart';
 import '../../../domain/entities/performance.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'legend_item.dart';
 
 class OperationsStandardCard extends StatelessWidget {
@@ -19,6 +19,8 @@ class OperationsStandardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return AppCard(
       padding: const EdgeInsets.all(AppDimensions.spacing22),
       child: Column(
@@ -28,7 +30,7 @@ class OperationsStandardCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'Op. Standards',
+                  l10n.operationsStandards,
                   style: AppTextStyles.heading.copyWith(
                     fontSize: AppDimensions.fontSize23,
                     fontWeight: FontWeight.w700,
@@ -38,7 +40,7 @@ class OperationsStandardCard extends StatelessWidget {
               ),
               AppStatusBadge(
                 label:
-                '${performance.demoDaysPercentage.toStringAsFixed(0)}% Demo days',
+                '${performance.demoDaysPercentage.toStringAsFixed(0)}% ${l10n.demoDays}',
                 backgroundColor: AppColors.accentRedTint,
                 textColor: AppColors.accentRed,
                 padding: const EdgeInsets.symmetric(
@@ -66,7 +68,7 @@ class OperationsStandardCard extends StatelessWidget {
                   bottom: AppDimensions.spacing6,
                 ),
                 child: Text(
-                  'Events Executed',
+                  l10n.eventsExecuted,
                   style: AppTextStyles.body.copyWith(
                     fontSize: AppDimensions.fontSize18,
                     color: AppColors.textSecondary,
@@ -86,6 +88,7 @@ class OperationsStandardCard extends StatelessWidget {
             eventsWithFc: performance.eventsWithFc,
             eventsExecuted: performance.eventsExecuted,
             eventsPlanned: performance.eventsPlanned,
+            l10n: l10n,
           ),
           const SizedBox(height: AppDimensions.spacing24),
           Row(
@@ -105,7 +108,7 @@ class OperationsStandardCard extends StatelessWidget {
                   bottom: AppDimensions.spacing4,
                 ),
                 child: Text(
-                  'Accepted Leads',
+                  l10n.acceptedLeads,
                   style: AppTextStyles.body.copyWith(
                     fontSize: AppDimensions.fontSize16,
                     color: AppColors.textSecondary,
@@ -135,14 +138,9 @@ class _PerformanceBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final total = eventsPlanned <= 0 ? 1.0 : eventsPlanned;
 
-    final fcWidth =
-    (eventsWithFc / total).clamp(0.0, 1.0);
-
-    final executedWidth =
-    (eventsExecuted / total).clamp(0.0, 1.0);
-
-    final remainingWidth =
-    (1 - executedWidth).clamp(0.0, 1.0);
+    final fcWidth = (eventsWithFc / total).clamp(0.0, 1.0);
+    final executedWidth = (eventsExecuted / total).clamp(0.0, 1.0);
+    final remainingWidth = (1 - executedWidth).clamp(0.0, 1.0);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(
@@ -155,19 +153,19 @@ class _PerformanceBar extends StatelessWidget {
           children: [
             Expanded(
               flex: (fcWidth * 100).round().clamp(1, 100),
-              child: ColoredBox(
+              child: const ColoredBox(
                 color: AppColors.accentRed,
               ),
             ),
             Expanded(
               flex: (executedWidth * 100).round().clamp(1, 100),
-              child: ColoredBox(
+              child: const ColoredBox(
                 color: AppColors.progressSecondary,
               ),
             ),
             Expanded(
               flex: (remainingWidth * 100).round().clamp(1, 100),
-              child: ColoredBox(
+              child: const ColoredBox(
                 color: AppColors.progressPlanned,
               ),
             ),
@@ -182,11 +180,13 @@ class _PerformanceLegend extends StatelessWidget {
   final double eventsWithFc;
   final double eventsExecuted;
   final double eventsPlanned;
+  final AppLocalizations l10n;
 
   const _PerformanceLegend({
     required this.eventsWithFc,
     required this.eventsExecuted,
     required this.eventsPlanned,
+    required this.l10n,
   });
 
   @override
@@ -197,15 +197,18 @@ class _PerformanceLegend extends StatelessWidget {
       children: [
         LegendItem(
           color: AppColors.accentRed,
-          text: 'w/ FC ${eventsWithFc.toStringAsFixed(1)}',
+          text:
+          '${l10n.withFc} ${eventsWithFc.toStringAsFixed(1)}',
         ),
         LegendItem(
           color: AppColors.progressSecondary,
-          text: 'Executed ${eventsExecuted.toStringAsFixed(1)}',
+          text:
+          '${l10n.executed} ${eventsExecuted.toStringAsFixed(1)}',
         ),
         LegendItem(
           color: AppColors.progressPlanned,
-          text: 'Planned ${eventsPlanned.toStringAsFixed(1)}',
+          text:
+          '${l10n.planned} ${eventsPlanned.toStringAsFixed(1)}',
         ),
       ],
     );

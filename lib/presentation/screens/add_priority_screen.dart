@@ -6,6 +6,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_dimensions.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../domain/entities/priority.dart';
+import '../../l10n/generated/app_localizations.dart';
 import '../bloc/priority/priority_bloc.dart';
 import '../bloc/priority/priority_event.dart';
 import '../bloc/priority/priority_state.dart';
@@ -24,9 +25,7 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-      getIt<PriorityBloc>()
-        ..add(LoadPriorities()),
+      create: (_) => getIt<PriorityBloc>()..add(LoadPriorities()),
       child: BlocConsumer<PriorityBloc, PriorityState>(
         listener: (context, state) {
           if (state is PrioritySaved) {
@@ -35,13 +34,13 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
 
           if (state is PriorityError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-              ),
+              SnackBar(content: Text(state.message)),
             );
           }
         },
         builder: (context, state) {
+          final l10n = AppLocalizations.of(context)!;
+
           if (state is PriorityLoading) {
             return const Scaffold(
               body: Center(
@@ -64,7 +63,11 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
           }
 
           if (state is PriorityLoaded) {
-            return _buildScreen(context, state.priorities);
+            return _buildScreen(
+              context,
+              state.priorities,
+              l10n,
+            );
           }
 
           return const Scaffold(
@@ -75,8 +78,11 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
     );
   }
 
-  Widget _buildScreen(BuildContext context,
-      List<Priority> priorities,) {
+  Widget _buildScreen(
+      BuildContext context,
+      List<Priority> priorities,
+      AppLocalizations l10n,
+      ) {
     return Scaffold(
       backgroundColor: AppColors.backgroundAlt,
       body: SafeArea(
@@ -93,9 +99,9 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                 children: [
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          'Add strategic priorities',
+                          l10n.addStrategicPriorities,
                           style: AppTextStyles.pageTitle,
                         ),
                       ),
@@ -120,12 +126,16 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: AppDimensions.spacing14),
-                  const Text(
-                    'These priorities generate relevant coaching actions for each field ride.',
+                  const SizedBox(
+                    height: AppDimensions.spacing14,
+                  ),
+                  Text(
+                    l10n.priorityCoachingDescription,
                     style: AppTextStyles.subtitle,
                   ),
-                  const SizedBox(height: AppDimensions.spacing24),
+                  const SizedBox(
+                    height: AppDimensions.spacing24,
+                  ),
                   ...priorities.map((priority) {
                     final isSelected =
                     _selectedPriorityIds.contains(priority.id);
@@ -137,7 +147,10 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                       child: PriorityCard(
                         priority: priority,
                         isSelected: isSelected,
-                        onTap: () => _togglePriority(priority),
+                        onTap: () => _togglePriority(
+                          priority,
+                          l10n,
+                        ),
                       ),
                     );
                   }),
@@ -168,7 +181,8 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.accentRed,
-                    disabledBackgroundColor: AppColors.borderStrong,
+                    disabledBackgroundColor:
+                    AppColors.borderStrong,
                     foregroundColor: AppColors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
@@ -177,8 +191,8 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
                     ),
                     elevation: 0,
                   ),
-                  child: const Text(
-                    'Save',
+                  child: Text(
+                    l10n.save,
                     style: AppTextStyles.button,
                   ),
                 ),
@@ -190,16 +204,19 @@ class _AddPriorityScreenState extends State<AddPriorityScreen> {
     );
   }
 
-  void _togglePriority(Priority priority) {
+  void _togglePriority(
+      Priority priority,
+      AppLocalizations l10n,
+      ) {
     setState(() {
       if (_selectedPriorityIds.contains(priority.id)) {
         _selectedPriorityIds.remove(priority.id);
       } else {
         if (_selectedPriorityIds.length >= 3) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                'You can select up to 3 priorities.',
+                l10n.selectUpToThreePriorities,
               ),
             ),
           );

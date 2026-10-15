@@ -6,6 +6,7 @@ import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../domain/entities/priority.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'priority_card.dart';
 
 class StrategicPrioritiesSection extends StatelessWidget {
@@ -22,6 +23,8 @@ class StrategicPrioritiesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -30,7 +33,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Strategic Priorities',
+                l10n.strategicPriorities,
                 style: AppTextStyles.sectionTitle.copyWith(
                   fontSize: AppDimensions.fontSize30,
                   fontWeight: FontWeight.w700,
@@ -61,7 +64,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spacing4),
         Text(
-          '$memberName\'s focus for the next 3–6 months.',
+          l10n.memberFocusDescription(memberName),
           style: AppTextStyles.body.copyWith(
             fontSize: AppDimensions.fontSize14,
             color: AppColors.muted,
@@ -69,7 +72,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spacing18),
 
-        // Reusable card for today's priorities.
+        // Today's priorities.
         AppCard(
           padding: const EdgeInsets.fromLTRB(
             AppDimensions.spacing14,
@@ -82,7 +85,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Today's Priorities",
+                l10n.todaysPriorities,
                 style: AppTextStyles.heading.copyWith(
                   fontSize: AppDimensions.fontSize20,
                   fontWeight: FontWeight.w700,
@@ -97,7 +100,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'No priorities selected',
+                      l10n.noPrioritiesSelected,
                       style: AppTextStyles.body.copyWith(
                         color: AppColors.textLight,
                       ),
@@ -105,38 +108,35 @@ class StrategicPrioritiesSection extends StatelessWidget {
                   ),
                 )
               else
-                ...List.generate(
-                  priorities.length,
-                      (index) {
-                    final priority = priorities[index];
+                ...List.generate(priorities.length, (index) {
+                  final priority = priorities[index];
 
-                    return Column(
-                      children: [
-                        PriorityCard(
-                          priority: priority,
-                          isSelected: true,
-                          onTap: () {},
-                        ),
-                        if (index != priorities.length - 1)
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: AppDimensions.spacing12,
-                            ),
-                            child: Divider(
-                              height: 1,
-                              color: AppColors.border,
-                            ),
+                  return Column(
+                    children: [
+                      PriorityCard(
+                        priority: priority,
+                        isSelected: true,
+                        onTap: () {},
+                      ),
+                      if (index != priorities.length - 1)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppDimensions.spacing12,
                           ),
-                      ],
-                    );
-                  },
-                ),
+                          child: Divider(
+                            height: 1,
+                            color: AppColors.border,
+                          ),
+                        ),
+                    ],
+                  );
+                }),
             ],
           ),
         ),
         const SizedBox(height: AppDimensions.spacing18),
 
-        // Reusable card for priorities history.
+        // Priorities history.
         AppCard(
           padding: const EdgeInsets.all(
             AppDimensions.spacing18,
@@ -144,17 +144,22 @@ class StrategicPrioritiesSection extends StatelessWidget {
           borderRadius: AppDimensions.radiusLarge,
           child: Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Priorities History',
+                      l10n.prioritiesHistory,
                       style: AppTextStyles.heading,
                     ),
-                    SizedBox(height: AppDimensions.spacing10),
+                    const SizedBox(
+                      height: AppDimensions.spacing10,
+                    ),
                     Text(
-                      '3 Open     0 Completed',
+                      l10n.priorityHistoryCounts(
+                        priorities.length,
+                        0,
+                      ),
                       style: AppTextStyles.body,
                     ),
                   ],

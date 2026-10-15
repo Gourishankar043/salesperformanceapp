@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../l10n/generated/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../theme/app_text_styles.dart';
@@ -8,17 +9,20 @@ import '../theme/app_text_styles.dart';
 class AppSectionHeader extends StatelessWidget {
   final String title;
   final bool showLastUpdated;
-  final String lastUpdatedText;
+  final String? lastUpdatedText;
 
   const AppSectionHeader({
     super.key,
     required this.title,
     this.showLastUpdated = true,
-    this.lastUpdatedText = 'Last updated: 2026-09-09',
+    this.lastUpdatedText,
   });
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final updatedText = lastUpdatedText ?? l10n.lastUpdated;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -48,7 +52,7 @@ class AppSectionHeader extends StatelessWidget {
                 ),
                 Flexible(
                   child: Text(
-                    lastUpdatedText,
+                    updatedText,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTextStyles.caption.copyWith(

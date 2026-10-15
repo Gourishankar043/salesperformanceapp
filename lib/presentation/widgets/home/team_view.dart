@@ -7,6 +7,7 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/app_section_header.dart';
 import '../../../core/widgets/time_period_selector.dart';
 import '../../../domain/entities/team_member.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../performance/team_overview.dart';
 import '../team/team_member_grid.dart';
 
@@ -29,6 +30,8 @@ class _TeamViewState extends State<TeamView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return ListView(
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.spacing16,
@@ -38,7 +41,7 @@ class _TeamViewState extends State<TeamView> {
       ),
       children: [
         Text(
-          'My team',
+          l10n.myTeam,
           style: AppTextStyles.title.copyWith(
             fontSize: AppDimensions.fontSize36,
             fontWeight: FontWeight.w700,
@@ -46,14 +49,14 @@ class _TeamViewState extends State<TeamView> {
           ),
         ),
         const SizedBox(height: AppDimensions.spacing36),
-        const AppSectionHeader(
-          title: 'Team Overview',
+        AppSectionHeader(
+          title: l10n.teamOverview,
         ),
         const SizedBox(height: AppDimensions.spacing16),
         const TeamOverviewCard(),
         const SizedBox(height: AppDimensions.spacing62),
-        const AppSectionHeader(
-          title: 'AM Overview',
+        AppSectionHeader(
+          title: l10n.amOverview,
         ),
         const SizedBox(height: AppDimensions.spacing16),
         TimePeriodSelector(
@@ -65,7 +68,10 @@ class _TeamViewState extends State<TeamView> {
           },
         ),
         const SizedBox(height: AppDimensions.spacing18),
-        const _OverviewLegend(),
+        _OverviewLegend(
+          planYtdLabel: l10n.planYtd,
+          executedEventsLabel: l10n.executedEventsPerDay,
+        ),
         const SizedBox(height: AppDimensions.spacing18),
         TeamMemberGrid(
           team: widget.team,
@@ -77,7 +83,13 @@ class _TeamViewState extends State<TeamView> {
 }
 
 class _OverviewLegend extends StatelessWidget {
-  const _OverviewLegend();
+  final String planYtdLabel;
+  final String executedEventsLabel;
+
+  const _OverviewLegend({
+    required this.planYtdLabel,
+    required this.executedEventsLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +105,7 @@ class _OverviewLegend extends StatelessWidget {
         ),
         const SizedBox(width: AppDimensions.spacing7),
         Text(
-          'Plan YTD',
+          planYtdLabel,
           style: AppTextStyles.caption.copyWith(
             fontSize: AppDimensions.fontSize13,
             color: AppColors.textSecondary,
@@ -108,7 +120,7 @@ class _OverviewLegend extends StatelessWidget {
         const SizedBox(width: AppDimensions.spacing6),
         Flexible(
           child: Text(
-            'Executed Events / day',
+            executedEventsLabel,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: AppTextStyles.caption.copyWith(

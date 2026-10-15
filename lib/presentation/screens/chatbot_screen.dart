@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_dimensions.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class ChatbotScreen extends StatelessWidget {
   const ChatbotScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chatbot'),
+        title: Text(l10n.chatbot),
       ),
       body: Center(
         child: Padding(
@@ -39,15 +42,15 @@ class ChatbotScreen extends StatelessWidget {
               const SizedBox(
                 height: AppDimensions.spacing20,
               ),
-              const Text(
-                'Sales Assistant',
+              Text(
+                l10n.salesAssistant,
                 style: AppTextStyles.sectionTitle,
               ),
               const SizedBox(
                 height: AppDimensions.spacing8,
               ),
               Text(
-                'Your sales assistant will be available here.',
+                l10n.salesAssistantDescription,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.body.copyWith(
                   color: AppColors.textSecondary,

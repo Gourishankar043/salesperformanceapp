@@ -31,6 +31,12 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shared_preferences: ^2.5.3
+
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
   flutter_bloc: ^9.1.1
   get_it: ^8.2.0
   dio: ^5.9.0
@@ -60,6 +66,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   assets:
     - lib/data/json/

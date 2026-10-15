@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../theme/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class TimePeriodSelector extends StatelessWidget {
   final String selectedPeriod;
@@ -21,8 +23,28 @@ class TimePeriodSelector extends StatelessWidget {
     'Year',
   ];
 
+  String _localizedPeriod(
+      String period,
+      AppLocalizations l10n,
+      ) {
+    switch (period) {
+      case 'Bi-weekly':
+        return l10n.biweekly;
+      case 'Month':
+        return l10n.month;
+      case 'Quarter':
+        return l10n.quarter;
+      case 'Year':
+        return l10n.year;
+      default:
+        return period;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       height: AppDimensions.spacing40,
       padding: const EdgeInsets.all(
@@ -66,7 +88,7 @@ class TimePeriodSelector extends StatelessWidget {
                       : null,
                 ),
                 child: Text(
-                  period,
+                  _localizedPeriod(period, l10n),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.caption.copyWith(

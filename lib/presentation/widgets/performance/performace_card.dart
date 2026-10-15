@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -8,6 +7,7 @@ import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/app_progress_bar.dart';
 import '../../../core/widgets/app_status_badge.dart';
 import '../../../domain/entities/performance.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class PerformanceCard extends StatelessWidget {
   final Performance performance;
@@ -19,6 +19,7 @@ class PerformanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final percentage = performance.netSalesPercentage / 100;
 
     return AppCard(
@@ -35,7 +36,7 @@ class PerformanceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Net Sales',
+                    l10n.netSales,
                     style: AppTextStyles.sectionTitle.copyWith(
                       fontSize: AppDimensions.fontSize25,
                       color: AppColors.textPrimary,
@@ -45,7 +46,7 @@ class PerformanceCard extends StatelessWidget {
                     height: AppDimensions.spacing4,
                   ),
                   Text(
-                    'YTD',
+                    l10n.ytd,
                     style: AppTextStyles.body.copyWith(
                       fontSize: AppDimensions.fontSize18,
                       color: AppColors.muted,
@@ -55,7 +56,7 @@ class PerformanceCard extends StatelessWidget {
               ),
               AppStatusBadge(
                 label:
-                '${performance.netSalesPercentage.toStringAsFixed(0)}% of plan',
+                '${performance.netSalesPercentage.toStringAsFixed(0)}% ${l10n.ofPlan}',
               ),
             ],
           ),
@@ -67,13 +68,13 @@ class PerformanceCard extends StatelessWidget {
                 value: _formatCurrency(
                   performance.netSalesAchieved,
                 ),
-                label: 'Achieved',
+                label: l10n.achieved,
               ),
               _Value(
                 value: _formatCurrency(
                   performance.netSalesPlan,
                 ),
-                label: 'Plan',
+                label: l10n.plan,
               ),
             ],
           ),

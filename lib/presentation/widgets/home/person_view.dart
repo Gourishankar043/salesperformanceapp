@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -9,6 +8,7 @@ import '../../../core/widgets/time_period_selector.dart';
 import '../../../domain/entities/performance.dart';
 import '../../../domain/entities/priority.dart';
 import '../../../domain/entities/team_member.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../performance/operations_standard_card.dart';
 import '../performance/performace_card.dart';
 import '../priority/strategic_priorities_section.dart';
@@ -72,12 +72,41 @@ class _PersonViewState extends State<PersonView> {
     ];
   }
 
+  List<Priority> _localizedPriorities(AppLocalizations l10n) {
+    return selectedPriorities.map((priority) {
+      switch (priority.id) {
+        case '1':
+          return Priority(
+            id: priority.id,
+            category: l10n.masteringCollaboration,
+            title: l10n.leverageReferencesPeers,
+            description: l10n.useProofAndPeers,
+          );
+        case '2':
+          return Priority(
+            id: priority.id,
+            category: l10n.masteringSales,
+            title: l10n.winBackDormantAccounts,
+            description: l10n.reactivateAccounts,
+          );
+        case '3':
+          return Priority(
+            id: priority.id,
+            category: l10n.masteringCollaboration,
+            title: l10n.improveCrossTeamHandovers,
+            description: l10n.fastCompleteHandovers,
+          );
+        default:
+        // Keep custom priorities unchanged.
+          return priority;
+      }
+    }).toList();
+  }
+
   Future<void> _openAddPriorities() async {
     final result = await Navigator.pushNamed(context, '/add-priority');
 
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
 
     if (result is List<Priority>) {
       setState(() {
@@ -88,10 +117,12 @@ class _PersonViewState extends State<PersonView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (widget.team.isEmpty) {
       return Center(
         child: Text(
-          'No team members available',
+          l10n.noTeamMembers,
           style: AppTextStyles.body.copyWith(
             color: AppColors.textSecondary,
           ),
@@ -126,9 +157,7 @@ class _PersonViewState extends State<PersonView> {
           },
         ),
         const SizedBox(height: AppDimensions.spacing36),
-        const AppSectionHeader(
-          title: 'AM Performance',
-        ),
+        AppSectionHeader(title: l10n.amPerformance),
         const SizedBox(height: AppDimensions.spacing18),
         PerformanceCard(
           performance: selectedTeamMember.details,
@@ -149,7 +178,7 @@ class _PersonViewState extends State<PersonView> {
         const SizedBox(height: AppDimensions.spacing28),
         StrategicPrioritiesSection(
           memberName: selectedMember ?? '',
-          priorities: selectedPriorities,
+          priorities: _localizedPriorities(l10n),
           onEdit: _openAddPriorities,
         ),
       ],

@@ -4,6 +4,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_dimensions.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../domain/entities/priority.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'priority_category_chip.dart';
 
 class PriorityCard extends StatelessWidget {
@@ -18,8 +19,57 @@ class PriorityCard extends StatelessWidget {
     required this.onTap,
   });
 
+  String _localizedTitle(AppLocalizations l10n) {
+    switch (priority.title) {
+      case 'Leverage references & peers':
+        return l10n.leverageReferencesPeers;
+      case 'Win back dormant accounts':
+        return l10n.winBackDormantAccounts;
+      case 'Improve cross-team handovers':
+        return l10n.improveCrossTeamHandovers;
+      case 'Strength consumables attach':
+        return l10n.strengthConsumablesAttach;
+      case 'Grow fleet penetration':
+        return l10n.growFleetPenetration;
+      default:
+        return priority.title;
+    }
+  }
+
+  String _localizedDescription(AppLocalizations l10n) {
+    switch (priority.description) {
+      case 'Use proof and peers to close.':
+        return l10n.useProofAndPeers;
+      case 'Reactivate accounts before they churn.':
+        return l10n.reactivateAccounts;
+      case 'Fast, complete handovers to every team.':
+        return l10n.fastCompleteHandovers;
+      case 'Attach blades and anchors to deals.':
+        return l10n.attachBladesAnchorsDescription;
+      case 'Make Fleet part of every conversation.':
+        return l10n.fleetConversationDescription;
+      default:
+        return priority.description;
+    }
+  }
+
+  String _localizedCategory(AppLocalizations l10n) {
+    switch (priority.category) {
+      case 'Mastering Collaboration':
+        return l10n.masteringCollaboration;
+      case 'Mastering Sales':
+        return l10n.masteringSales;
+      case 'Mastering Offerings':
+        return l10n.masteringOfferings;
+      default:
+        return priority.category;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -52,14 +102,14 @@ class PriorityCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PriorityCategoryChip(
-                    category: priority.category,
+                    category: _localizedCategory(l10n),
                     isSelected: isSelected,
                   ),
                   const SizedBox(
                     height: AppDimensions.spacing10,
                   ),
                   Text(
-                    priority.title,
+                    _localizedTitle(l10n),
                     style: AppTextStyles.heading.copyWith(
                       fontSize: AppDimensions.fontSize16,
                       fontWeight: FontWeight.w600,
@@ -72,7 +122,7 @@ class PriorityCard extends StatelessWidget {
                     height: AppDimensions.spacing5,
                   ),
                   Text(
-                    priority.description,
+                    _localizedDescription(l10n),
                     style: AppTextStyles.body.copyWith(
                       fontSize: AppDimensions.fontSize13,
                       height: 1.35,

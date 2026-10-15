@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_dimensions.dart';
 import '../../core/theme/app_text_styles.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class MyDayScreen extends StatelessWidget {
   const MyDayScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Day'),
+        title: Text(l10n.myDay),
       ),
       body: Padding(
         padding: const EdgeInsets.all(
@@ -20,15 +23,15 @@ class MyDayScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Today',
+            Text(
+              l10n.today,
               style: AppTextStyles.sectionTitle,
             ),
             const SizedBox(
               height: AppDimensions.spacing6,
             ),
             Text(
-              'Your daily sales activities will appear here.',
+              l10n.dailyActivitiesDescription,
               style: AppTextStyles.body.copyWith(
                 color: AppColors.textSecondary,
               ),
@@ -50,25 +53,25 @@ class MyDayScreen extends StatelessWidget {
                   color: AppColors.border,
                 ),
               ),
-              child: const Column(
+              child: Column(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.today_outlined,
                     size: AppDimensions.size40,
                     color: AppColors.primary,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: AppDimensions.spacing12,
                   ),
                   Text(
-                    'No activities for today',
+                    l10n.noActivitiesToday,
                     style: AppTextStyles.heading,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: AppDimensions.spacing6,
                   ),
                   Text(
-                    'Your planned activities will appear here.',
+                    l10n.plannedActivitiesDescription,
                     textAlign: TextAlign.center,
                     style: AppTextStyles.caption,
                   ),

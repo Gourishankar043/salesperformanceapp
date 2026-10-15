@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -7,12 +6,15 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/app_card.dart';
 import '../../../core/widgets/app_progress_bar.dart';
 import '../../../core/widgets/app_status_badge.dart';
+import '../../../l10n/generated/app_localizations.dart';
 
 class TeamOverviewCard extends StatelessWidget {
   const TeamOverviewCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return AppCard(
       padding: const EdgeInsets.fromLTRB(
         AppDimensions.spacing30,
@@ -31,7 +33,7 @@ class TeamOverviewCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Net Sales',
+                    l10n.netSales,
                     style: AppTextStyles.sectionTitle.copyWith(
                       fontSize: AppDimensions.fontSize25,
                       color: AppColors.textPrimary,
@@ -41,7 +43,7 @@ class TeamOverviewCard extends StatelessWidget {
                     height: AppDimensions.spacing4,
                   ),
                   Text(
-                    'YTD',
+                    l10n.ytd,
                     style: AppTextStyles.body.copyWith(
                       fontSize: AppDimensions.fontSize18,
                       color: AppColors.muted,
@@ -49,8 +51,8 @@ class TeamOverviewCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const AppStatusBadge(
-                label: '120% Above plan',
+              AppStatusBadge(
+                label: '120% ${l10n.abovePlan}',
                 fontSize: AppDimensions.fontSize15,
               ),
             ],
@@ -58,16 +60,16 @@ class TeamOverviewCard extends StatelessWidget {
           const SizedBox(
             height: AppDimensions.spacing34,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _SalesValue(
                 value: '¥5.28M',
-                label: 'Achieved',
+                label: l10n.achieved,
               ),
               _SalesValue(
                 value: '¥4.41M',
-                label: 'Plan',
+                label: l10n.plan,
               ),
             ],
           ),
