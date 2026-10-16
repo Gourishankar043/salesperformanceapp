@@ -26,19 +26,9 @@ class OperationsStandardCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  l10n.operationsStandards,
-                  style: AppTextStyles.heading.copyWith(
-                    fontSize: AppDimensions.fontSize23,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-              ),
-              AppStatusBadge(
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final badge = AppStatusBadge(
                 label:
                 '${performance.demoDaysPercentage.toStringAsFixed(0)}% ${l10n.demoDays}',
                 backgroundColor: AppColors.accentRedTint,
@@ -47,35 +37,57 @@ class OperationsStandardCard extends StatelessWidget {
                   horizontal: AppDimensions.spacing10,
                   vertical: AppDimensions.spacing8,
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppDimensions.spacing28),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                performance.eventsExecuted.toStringAsFixed(1),
-                style: AppTextStyles.metricValue.copyWith(
-                  fontSize: AppDimensions.fontSize38,
-                  fontWeight: FontWeight.w500,
+              );
+
+              final title = Text(
+                l10n.operationsStandards,
+                softWrap: true,
+                style: AppTextStyles.heading.copyWith(
+                  fontSize: AppDimensions.fontSize23,
+                  fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
                 ),
-              ),
-              const SizedBox(width: AppDimensions.spacing6),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: AppDimensions.spacing6,
-                ),
-                child: Text(
-                  l10n.eventsExecuted,
-                  style: AppTextStyles.body.copyWith(
-                    fontSize: AppDimensions.fontSize18,
-                    color: AppColors.textSecondary,
+              );
+
+              if (constraints.maxWidth < 360) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    title,
+                    const SizedBox(
+                      height: AppDimensions.spacing8,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: badge,
+                    ),
+                  ],
+                );
+              }
+
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: title),
+                  const SizedBox(
+                    width: AppDimensions.spacing8,
                   ),
-                ),
-              ),
-            ],
+                  Flexible(
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: badge,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+          const SizedBox(height: AppDimensions.spacing28),
+          _MetricLabelRow(
+            value: performance.eventsExecuted.toStringAsFixed(1),
+            label: l10n.eventsExecuted,
+            valueFontSize: AppDimensions.fontSize38,
+            labelFontSize: AppDimensions.fontSize18,
           ),
           const SizedBox(height: AppDimensions.spacing18),
           _PerformanceBar(
@@ -91,34 +103,60 @@ class OperationsStandardCard extends StatelessWidget {
             l10n: l10n,
           ),
           const SizedBox(height: AppDimensions.spacing24),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                performance.acceptedLeads.toStringAsFixed(1),
-                style: AppTextStyles.metricValue.copyWith(
-                  fontSize: AppDimensions.fontSize32,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-              const SizedBox(width: AppDimensions.spacing8),
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: AppDimensions.spacing4,
-                ),
-                child: Text(
-                  l10n.acceptedLeads,
-                  style: AppTextStyles.body.copyWith(
-                    fontSize: AppDimensions.fontSize16,
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ),
-            ],
+          _MetricLabelRow(
+            value: performance.acceptedLeads.toStringAsFixed(1),
+            label: l10n.acceptedLeads,
+            valueFontSize: AppDimensions.fontSize32,
+            labelFontSize: AppDimensions.fontSize16,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MetricLabelRow extends StatelessWidget {
+  final String value;
+  final String label;
+  final double valueFontSize;
+  final double labelFontSize;
+
+  const _MetricLabelRow({
+    required this.value,
+    required this.label,
+    required this.valueFontSize,
+    required this.labelFontSize,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.end,
+      spacing: AppDimensions.spacing8,
+      runSpacing: AppDimensions.spacing4,
+      children: [
+        Text(
+          value,
+          style: AppTextStyles.metricValue.copyWith(
+            fontSize: valueFontSize,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textPrimary,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: AppDimensions.spacing4,
+          ),
+          child: Text(
+            label,
+            softWrap: true,
+            style: AppTextStyles.body.copyWith(
+              fontSize: labelFontSize,
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -197,18 +235,15 @@ class _PerformanceLegend extends StatelessWidget {
       children: [
         LegendItem(
           color: AppColors.accentRed,
-          text:
-          '${l10n.withFc} ${eventsWithFc.toStringAsFixed(1)}',
+          text: '${l10n.withFc} ${eventsWithFc.toStringAsFixed(1)}',
         ),
         LegendItem(
           color: AppColors.progressSecondary,
-          text:
-          '${l10n.executed} ${eventsExecuted.toStringAsFixed(1)}',
+          text: '${l10n.executed} ${eventsExecuted.toStringAsFixed(1)}',
         ),
         LegendItem(
           color: AppColors.progressPlanned,
-          text:
-          '${l10n.planned} ${eventsPlanned.toStringAsFixed(1)}',
+          text: '${l10n.planned} ${eventsPlanned.toStringAsFixed(1)}',
         ),
       ],
     );

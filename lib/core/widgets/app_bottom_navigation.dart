@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class AppBottomNavigation extends StatelessWidget {
   final int selectedIndex;
@@ -15,45 +16,52 @@ class AppBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isCompact = screenWidth < 360;
+
     return NavigationBar(
       height: AppDimensions.navigationHeight,
       backgroundColor: AppColors.card,
       elevation: AppDimensions.spacing8,
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
-      destinations: const [
+      labelBehavior: isCompact
+          ? NavigationDestinationLabelBehavior.onlyShowSelected
+          : NavigationDestinationLabelBehavior.alwaysShow,
+      destinations: [
         NavigationDestination(
-          icon: Icon(
+          icon: const Icon(
             Icons.home_outlined,
             color: AppColors.textSecondary,
           ),
-          selectedIcon: Icon(
+          selectedIcon: const Icon(
             Icons.home,
             color: AppColors.accentRed,
           ),
-          label: 'Home',
+          label: l10n.home,
         ),
         NavigationDestination(
-          icon: Icon(
+          icon: const Icon(
             Icons.chat_bubble_outline,
             color: AppColors.textSecondary,
           ),
-          selectedIcon: Icon(
+          selectedIcon: const Icon(
             Icons.chat_bubble,
             color: AppColors.textSecondary,
           ),
-          label: 'Chatbot',
+          label: l10n.chatbot,
         ),
         NavigationDestination(
-          icon: Icon(
+          icon: const Icon(
             Icons.calendar_month_outlined,
             color: AppColors.textSecondary,
           ),
-          selectedIcon: Icon(
+          selectedIcon: const Icon(
             Icons.calendar_month,
             color: AppColors.textSecondary,
           ),
-          label: 'My Day',
+          label: l10n.myDay,
         ),
       ],
     );

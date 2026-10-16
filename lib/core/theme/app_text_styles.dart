@@ -5,8 +5,6 @@
 
   class AppTextStyles {
     AppTextStyles._();
-
-    // Page and section headings
     static const TextStyle title = TextStyle(
       fontSize: AppDimensions.fontSize22,
       fontWeight: FontWeight.w700,
@@ -36,8 +34,6 @@
       fontWeight: FontWeight.w400,
       color: AppColors.textSecondary,
     );
-
-    // Body text
     static const TextStyle body = TextStyle(
       fontSize: AppDimensions.fontSize14,
       fontWeight: FontWeight.w400,
@@ -68,8 +64,6 @@
       fontWeight: FontWeight.w600,
       color: AppColors.textSecondary,
     );
-
-    // Performance metrics
     static const TextStyle metricValue = TextStyle(
       fontSize: AppDimensions.fontSize22,
       fontWeight: FontWeight.w700,

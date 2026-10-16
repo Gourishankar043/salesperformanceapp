@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -93,64 +92,94 @@ class _OverviewLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          '%',
-          style: AppTextStyles.bodyMedium.copyWith(
-            fontSize: AppDimensions.fontSize14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textSecondary,
-          ),
-        ),
-        const SizedBox(width: AppDimensions.spacing7),
-        Text(
-          planYtdLabel,
-          style: AppTextStyles.caption.copyWith(
-            fontSize: AppDimensions.fontSize13,
-            color: AppColors.textSecondary,
-          ),
-        ),
-        const SizedBox(width: AppDimensions.spacing18),
-        const Icon(
-          Icons.calendar_month_outlined,
-          size: AppDimensions.iconSmall,
-          color: AppColors.textSecondary,
-        ),
-        const SizedBox(width: AppDimensions.spacing6),
-        Flexible(
-          child: Text(
-            executedEventsLabel,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.caption.copyWith(
-              fontSize: AppDimensions.fontSize13,
-              color: AppColors.textSecondary,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxItemWidth = constraints.maxWidth;
+
+        return Wrap(
+          alignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: AppDimensions.spacing12,
+          runSpacing: AppDimensions.spacing10,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '%',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    fontSize: AppDimensions.fontSize14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(
+                  width: AppDimensions.spacing7,
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: maxItemWidth * 0.65,
+                  ),
+                  child: Text(
+                    planYtdLabel,
+                    softWrap: true,
+                    style: AppTextStyles.caption.copyWith(
+                      fontSize: AppDimensions.fontSize13,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ),
-        const SizedBox(width: AppDimensions.spacing12),
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.spacing9,
-            vertical: AppDimensions.spacing5,
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.chipBackground,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.radiusSmall,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.calendar_month_outlined,
+                  size: AppDimensions.iconSmall,
+                  color: AppColors.textSecondary,
+                ),
+                const SizedBox(
+                  width: AppDimensions.spacing6,
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: maxItemWidth * 0.65,
+                  ),
+                  child: Text(
+                    executedEventsLabel,
+                    softWrap: true,
+                    style: AppTextStyles.caption.copyWith(
+                      fontSize: AppDimensions.fontSize13,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          child: Text(
-            'MTD',
-            style: AppTextStyles.caption.copyWith(
-              fontSize: AppDimensions.fontSize12,
-              fontWeight: FontWeight.w600,
-              color: AppColors.mutedDark,
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppDimensions.spacing9,
+                vertical: AppDimensions.spacing5,
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.chipBackground,
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.radiusSmall,
+                ),
+              ),
+              child: Text(
+                'MTD',
+                style: AppTextStyles.caption.copyWith(
+                  fontSize: AppDimensions.fontSize12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.mutedDark,
+                ),
+              ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

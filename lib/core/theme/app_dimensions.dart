@@ -1,7 +1,5 @@
 class AppDimensions {
   AppDimensions._();
-
-  // Spacing scale
   static const double spacing1 = 1;
   static const double spacing2 = 2;
   static const double spacing3 = 3;
@@ -31,16 +29,12 @@ class AppDimensions {
   static const double spacing72 = 72;
   static const double spacing110 = 110;
   static const double spacing120 = 120;
-
-  // Standard spacing aliases
   static const double spacingXSmall = 4;
   static const double spacingSmall = 8;
   static const double spacingMedium = 12;
   static const double spacingLarge = 16;
   static const double spacingXLarge = 24;
   static const double spacingXXLarge = 32;
-
-  // Component sizes
   static const double size1 = 1;
   static const double size13 = 13;
   static const double size14 = 14;
@@ -56,8 +50,6 @@ class AppDimensions {
   static const double size52 = 52;
   static const double size54 = 54;
   static const double size72 = 72;
-
-  // Corner radii
   static const double radius6 = 6;
   static const double radius7 = 7;
   static const double radius10 = 10;
@@ -73,8 +65,6 @@ class AppDimensions {
   static const double radiusLarge = 14;
   static const double radiusCard = 16;
   static const double radiusPill = 999;
-
-  // Typography sizes
   static const double fontSize11 = 11;
   static const double fontSize12 = 12;
   static const double fontSize13 = 13;
@@ -91,8 +81,6 @@ class AppDimensions {
   static const double fontSize32 = 32;
   static const double fontSize36 = 36;
   static const double fontSize38 = 38;
-
-  // Semantic typography aliases
   static const double fontCaption = 12;
   static const double fontBodySmall = 13;
   static const double fontBody = 14;
@@ -102,24 +90,16 @@ class AppDimensions {
   static const double fontMetric = 30;
   static const double fontMetricLarge = 32;
   static const double fontPageTitle = 36;
-
-  // Line heights
   static const double lineHeightBody = 1.35;
   static const double lineHeightRelaxed = 1.4;
-
-  // Borders and dividers
   static const double borderWidth = 1;
   static const double borderWidthSelected = 1.5;
   static const double dividerThickness = 1;
-
-  // Controls and navigation
   static const double buttonHeight = 48;
   static const double controlHeight = 48;
   static const double navigationHeight = 82;
   static const double progressHeight = 12;
   static const double iconLarge = 24;
-
-  // Home header dimensions
   static const double homeHeaderHorizontalPadding = 30;
   static const double homeHeaderTopPadding = 12;
   static const double homeHeaderBottomPadding = 16;
@@ -127,20 +107,12 @@ class AppDimensions {
   static const double homeHeaderControlRadius = 30;
   static const double homeHeaderControlPadding = 14;
   static const double homeHeaderIconSize = 30;
-
-  // Effects
   static const double shadowOpacity = 0.04;
-  // Spacing scale
   static const double spacing9 = 9;
   static const double spacing17 = 17;
-
   static const int teamMemberGridColumns = 2;
   static const double teamMemberGridChildAspectRatio = 1.35;
-
-// Component sizes
   static const double size9 = 9;
-
-// Controls and navigation
   static const double iconSmall = 15;
   static const double iconMedium = 22;
 

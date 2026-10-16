@@ -31,6 +31,9 @@ class PriorityCategoryChip extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.sizeOf(context).width * 0.75,
+      ),
       padding: const EdgeInsets.symmetric(
         horizontal: AppDimensions.spacing9,
         vertical: AppDimensions.spacing5,
@@ -45,6 +48,7 @@ class PriorityCategoryChip extends StatelessWidget {
       ),
       child: Text(
         _localizedCategory(l10n),
+        softWrap: true,
         style: AppTextStyles.caption.copyWith(
           fontSize: AppDimensions.fontSize11,
           fontWeight: FontWeight.w500,

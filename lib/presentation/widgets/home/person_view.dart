@@ -82,6 +82,7 @@ class _PersonViewState extends State<PersonView> {
             title: l10n.leverageReferencesPeers,
             description: l10n.useProofAndPeers,
           );
+
         case '2':
           return Priority(
             id: priority.id,
@@ -89,6 +90,7 @@ class _PersonViewState extends State<PersonView> {
             title: l10n.winBackDormantAccounts,
             description: l10n.reactivateAccounts,
           );
+
         case '3':
           return Priority(
             id: priority.id,
@@ -96,15 +98,18 @@ class _PersonViewState extends State<PersonView> {
             title: l10n.improveCrossTeamHandovers,
             description: l10n.fastCompleteHandovers,
           );
+
         default:
-        // Keep custom priorities unchanged.
           return priority;
       }
     }).toList();
   }
 
   Future<void> _openAddPriorities() async {
-    final result = await Navigator.pushNamed(context, '/add-priority');
+    final result = await Navigator.pushNamed(
+      context,
+      '/add-priority',
+    );
 
     if (!mounted) return;
 
@@ -121,10 +126,17 @@ class _PersonViewState extends State<PersonView> {
 
     if (widget.team.isEmpty) {
       return Center(
-        child: Text(
-          l10n.noTeamMembers,
-          style: AppTextStyles.body.copyWith(
-            color: AppColors.textSecondary,
+        child: Padding(
+          padding: const EdgeInsets.all(
+            AppDimensions.spacing16,
+          ),
+          child: Text(
+            l10n.noTeamMembers,
+            textAlign: TextAlign.center,
+            softWrap: true,
+            style: AppTextStyles.body.copyWith(
+              color: AppColors.textSecondary,
+            ),
           ),
         ),
       );
@@ -139,49 +151,69 @@ class _PersonViewState extends State<PersonView> {
       }
     }
 
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppDimensions.spacing16,
-        AppDimensions.spacing12,
-        AppDimensions.spacing16,
-        AppDimensions.spacing120,
-      ),
-      children: [
-        MemberSelector(
-          members: widget.team,
-          selectedMember: selectedMember,
-          onChanged: (value) {
-            setState(() {
-              selectedMember = value;
-            });
-          },
-        ),
-        const SizedBox(height: AppDimensions.spacing36),
-        AppSectionHeader(title: l10n.amPerformance),
-        const SizedBox(height: AppDimensions.spacing18),
-        PerformanceCard(
-          performance: selectedTeamMember.details,
-        ),
-        const SizedBox(height: AppDimensions.spacing24),
-        TimePeriodSelector(
-          selectedPeriod: selectedPeriod,
-          onChanged: (value) {
-            setState(() {
-              selectedPeriod = value;
-            });
-          },
-        ),
-        const SizedBox(height: AppDimensions.spacing26),
-        OperationsStandardCard(
-          performance: selectedTeamMember.details,
-        ),
-        const SizedBox(height: AppDimensions.spacing28),
-        StrategicPrioritiesSection(
-          memberName: selectedMember ?? '',
-          priorities: _localizedPriorities(l10n),
-          onEdit: _openAddPriorities,
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final horizontalPadding = constraints.maxWidth < 360
+            ? AppDimensions.spacing12
+            : AppDimensions.spacing16;
+
+        return ListView(
+          padding: EdgeInsets.fromLTRB(
+            horizontalPadding,
+            AppDimensions.spacing12,
+            horizontalPadding,
+            AppDimensions.spacing120,
+          ),
+          children: [
+            MemberSelector(
+              members: widget.team,
+              selectedMember: selectedMember,
+              onChanged: (value) {
+                setState(() {
+                  selectedMember = value;
+                });
+              },
+            ),
+            const SizedBox(
+              height: AppDimensions.spacing36,
+            ),
+            AppSectionHeader(
+              title: l10n.amPerformance,
+            ),
+            const SizedBox(
+              height: AppDimensions.spacing18,
+            ),
+            PerformanceCard(
+              performance: selectedTeamMember.details,
+            ),
+            const SizedBox(
+              height: AppDimensions.spacing24,
+            ),
+            TimePeriodSelector(
+              selectedPeriod: selectedPeriod,
+              onChanged: (value) {
+                setState(() {
+                  selectedPeriod = value;
+                });
+              },
+            ),
+            const SizedBox(
+              height: AppDimensions.spacing26,
+            ),
+            OperationsStandardCard(
+              performance: selectedTeamMember.details,
+            ),
+            const SizedBox(
+              height: AppDimensions.spacing28,
+            ),
+            StrategicPrioritiesSection(
+              memberName: selectedMember ?? '',
+              priorities: _localizedPriorities(l10n),
+              onEdit: _openAddPriorities,
+            ),
+          ],
+        );
+      },
     );
   }
 }

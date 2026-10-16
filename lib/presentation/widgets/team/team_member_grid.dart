@@ -16,24 +16,37 @@ class TeamMemberGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: team.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: AppDimensions.teamMemberGridColumns,
-        crossAxisSpacing: AppDimensions.spacing10,
-        mainAxisSpacing: AppDimensions.spacing10,
-        childAspectRatio:
-        AppDimensions.teamMemberGridChildAspectRatio,
-      ),
-      itemBuilder: (context, index) {
-        final member = team[index];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
 
-        return TeamMemberCard(
-          member: member,
-          onTap: () {
-            onMemberTap(member);
+        final int crossAxisCount;
+        if (width < 340) {
+          crossAxisCount = 1;
+        } else if (width < 700) {
+          crossAxisCount = 2;
+        } else {
+          crossAxisCount = (width / 260).floor().clamp(2, 4);
+        }
+
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: team.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: AppDimensions.spacing10,
+            mainAxisSpacing: AppDimensions.spacing10,
+            childAspectRatio:
+            AppDimensions.teamMemberGridChildAspectRatio,
+          ),
+          itemBuilder: (context, index) {
+            final member = team[index];
+
+            return TeamMemberCard(
+              member: member,
+              onTap: () => onMemberTap(member),
+            );
           },
         );
       },

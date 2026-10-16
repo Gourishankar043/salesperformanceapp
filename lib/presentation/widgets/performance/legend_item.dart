@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -17,28 +16,42 @@ class LegendItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: AppDimensions.size9,
-          height: AppDimensions.size9,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(
-              AppDimensions.spacing2,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.sizeOf(context).width * 0.8,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: AppDimensions.spacing2,
+            ),
+            child: Container(
+              width: AppDimensions.size9,
+              height: AppDimensions.size9,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.spacing2,
+                ),
+              ),
             ),
           ),
-        ),
-        const SizedBox(width: AppDimensions.spacing6),
-        Text(
-          text,
-          style: AppTextStyles.caption.copyWith(
-            fontSize: AppDimensions.fontSize11,
-            color: AppColors.textSecondary,
+          const SizedBox(width: AppDimensions.spacing6),
+          Flexible(
+            child: Text(
+              text,
+              softWrap: true,
+              style: AppTextStyles.caption.copyWith(
+                fontSize: AppDimensions.fontSize11,
+                color: AppColors.textSecondary,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

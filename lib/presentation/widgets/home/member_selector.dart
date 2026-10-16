@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -20,53 +19,70 @@ class MemberSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      initialValue: members.any(
-            (member) => member.name == selectedMember,
-      )
-          ? selectedMember
-          : null,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: AppColors.card,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.spacing20,
-          vertical: AppDimensions.spacing17,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusLarge,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final validSelectedMember = members.any(
+              (member) => member.name == selectedMember,
+        )
+            ? selectedMember
+            : null;
+
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppDimensions.spacing12,
           ),
-          borderSide: const BorderSide(
-            color: AppColors.border,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(
+              AppDimensions.radiusMedium,
+            ),
+            border: Border.all(
+              color: AppColors.border,
+            ),
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            AppDimensions.radiusLarge,
-          ),
-          borderSide: const BorderSide(
-            color: AppColors.border,
-          ),
-        ),
-      ),
-      icon: const Icon(
-        Icons.keyboard_arrow_down,
-        size: AppDimensions.iconLarge,
-        color: AppColors.textSecondary,
-      ),
-      items: members.map((member) {
-        return DropdownMenuItem<String>(
-          value: member.name,
-          child: Text(
-            member.name,
-            style: AppTextStyles.body.copyWith(
-              fontSize: AppDimensions.fontSize18,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: validSelectedMember,
+              isExpanded: true,
+              icon: const Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: AppColors.textSecondary,
+              ),
+              hint: Text(
+                'Select person',
+                softWrap: true,
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              items: members.map((member) {
+                return DropdownMenuItem<String>(
+                  value: member.name,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: constraints.maxWidth > 0
+                          ? constraints.maxWidth -
+                          AppDimensions.spacing24
+                          : double.infinity,
+                    ),
+                    child: Text(
+                      member.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+              onChanged: onChanged,
             ),
           ),
         );
-      }).toList(),
-      onChanged: onChanged,
+      },
     );
   }
 }

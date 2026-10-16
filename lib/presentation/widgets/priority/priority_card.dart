@@ -110,6 +110,8 @@ class PriorityCard extends StatelessWidget {
                   ),
                   Text(
                     _localizedTitle(l10n),
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
                     style: AppTextStyles.heading.copyWith(
                       fontSize: AppDimensions.fontSize16,
                       fontWeight: FontWeight.w600,
@@ -123,6 +125,8 @@ class PriorityCard extends StatelessWidget {
                   ),
                   Text(
                     _localizedDescription(l10n),
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
                     style: AppTextStyles.body.copyWith(
                       fontSize: AppDimensions.fontSize13,
                       height: 1.35,
@@ -137,30 +141,35 @@ class PriorityCard extends StatelessWidget {
             const SizedBox(
               width: AppDimensions.spacing12,
             ),
-            Container(
-              width: AppDimensions.size24,
-              height: AppDimensions.size24,
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.accentRed
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(
-                  AppDimensions.radiusSmall,
-                ),
-                border: Border.all(
+            Padding(
+              padding: const EdgeInsets.only(
+                top: AppDimensions.spacing2,
+              ),
+              child: Container(
+                width: AppDimensions.size24,
+                height: AppDimensions.size24,
+                decoration: BoxDecoration(
                   color: isSelected
                       ? AppColors.accentRed
-                      : AppColors.mutedBorder,
-                  width: 1.5,
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.radiusSmall,
+                  ),
+                  border: Border.all(
+                    color: isSelected
+                        ? AppColors.accentRed
+                        : AppColors.mutedBorder,
+                    width: 1.5,
+                  ),
                 ),
+                child: isSelected
+                    ? const Icon(
+                  Icons.check,
+                  size: AppDimensions.size17,
+                  color: AppColors.white,
+                )
+                    : null,
               ),
-              child: isSelected
-                  ? const Icon(
-                Icons.check,
-                size: AppDimensions.size17,
-                color: AppColors.white,
-              )
-                  : null,
             ),
           ],
         ),

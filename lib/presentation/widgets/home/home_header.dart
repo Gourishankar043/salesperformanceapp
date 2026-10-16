@@ -20,14 +20,31 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isCompact = screenWidth < 400;
+
+    final languages = <String, String>{
+      'en': l10n.english,
+      'de': l10n.german,
+      'fr': l10n.french,
+      'it': l10n.italian,
+      'es': l10n.spanish,
+      'zh': l10n.chinese,
+      'ja': l10n.japanese,
+      'ko': l10n.korean,
+      'ms': l10n.malay,
+      'pt': l10n.portuguese,
+    };
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.homeHeaderHorizontalPadding,
+      padding: EdgeInsets.symmetric(
+        horizontal: isCompact
+            ? AppDimensions.spacing12
+            : AppDimensions.homeHeaderHorizontalPadding,
         vertical: AppDimensions.homeHeaderBottomPadding,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           PopupMenuButton<String>(
             tooltip: l10n.selectLanguage,
@@ -36,32 +53,24 @@ class HomeHeader extends StatelessWidget {
               LocaleController.instance.changeLocale(languageCode);
             },
             itemBuilder: (context) {
-              final languages = <String, String>{
-                'en': l10n.english,
-                'de': l10n.german,
-                'fr': l10n.french,
-                'it': l10n.italian,
-                'es': l10n.spanish,
-                'zh': l10n.chinese,
-                'ja': l10n.japanese,
-                'ko': l10n.korean,
-                'ms': l10n.malay,
-                'pt': l10n.portuguese,
-              };
-
               return languages.entries.map((entry) {
                 return PopupMenuItem<String>(
                   value: entry.key,
-                  child: Text(entry.value),
+                  child: Text(
+                    entry.value,
+                    softWrap: true,
+                  ),
                 );
               }).toList();
             },
           ),
-
-          ViewToggle(
-            isTeamView: isTeamView,
-            onTeamSelected: onTeamSelected,
-            onPersonSelected: onPersonSelected,
+          const Spacer(),
+          Flexible(
+            child: ViewToggle(
+              isTeamView: isTeamView,
+              onTeamSelected: onTeamSelected,
+              onPersonSelected: onPersonSelected,
+            ),
           ),
         ],
       ),

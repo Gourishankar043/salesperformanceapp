@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../l10n/generated/app_localizations.dart';
@@ -22,49 +21,60 @@ class AppSectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final updatedText = lastUpdatedText ?? l10n.lastUpdated;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isCompact = screenWidth < 400;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Wrap(
+      alignment: WrapAlignment.spaceBetween,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: AppDimensions.spacing8,
+      runSpacing: AppDimensions.spacing8,
       children: [
-        Expanded(
+        SizedBox(
+          width: showLastUpdated
+              ? (screenWidth < 400
+              ? screenWidth - AppDimensions.spacing32
+              : screenWidth * 0.55)
+              : double.infinity,
           child: Text(
             title,
+            softWrap: true,
             style: AppTextStyles.sectionTitle.copyWith(
-              fontSize: AppDimensions.fontSize30,
+              fontSize: isCompact
+                  ? AppDimensions.fontSize23
+                  : AppDimensions.fontSize30,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
             ),
           ),
         ),
-        if (showLastUpdated) ...[
-          const SizedBox(width: AppDimensions.spacing8),
-          Flexible(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(
-                  Icons.sync,
-                  size: AppDimensions.iconSmall,
-                  color: AppColors.muted,
+        if (showLastUpdated)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.sync,
+                size: AppDimensions.iconSmall,
+                color: AppColors.muted,
+              ),
+              const SizedBox(width: AppDimensions.spacing5),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: screenWidth < 400
+                      ? screenWidth - (AppDimensions.spacing32 * 2)
+                      : screenWidth * 0.4,
                 ),
-                const SizedBox(
-                  width: AppDimensions.spacing5,
-                ),
-                Flexible(
-                  child: Text(
-                    updatedText,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.caption.copyWith(
-                      fontSize: AppDimensions.fontSize12,
-                      color: AppColors.muted,
-                    ),
+                child: Text(
+                  updatedText,
+                  softWrap: true,
+                  style: AppTextStyles.caption.copyWith(
+                    fontSize: AppDimensions.fontSize12,
+                    color: AppColors.muted,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
       ],
     );
   }

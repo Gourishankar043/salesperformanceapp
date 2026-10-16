@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -26,6 +25,9 @@ class AppStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isCompact = screenWidth < 400;
+
     return Container(
       padding: padding,
       decoration: BoxDecoration(
@@ -36,9 +38,11 @@ class AppStatusBadge extends StatelessWidget {
       ),
       child: Text(
         label,
+        softWrap: true,
+        textAlign: TextAlign.center,
         style: AppTextStyles.bodyMedium.copyWith(
           color: textColor,
-          fontSize: fontSize,
+          fontSize: isCompact ? fontSize * 0.9 : fontSize,
           fontWeight: FontWeight.w700,
         ),
       ),

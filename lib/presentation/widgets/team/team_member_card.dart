@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -32,17 +31,26 @@ class TeamMemberCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              member.name,
-              style: AppTextStyles.heading.copyWith(
-                fontSize: AppDimensions.fontSize17,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+            SizedBox(
+              width: double.infinity,
+              child: Text(
+                member.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                style: AppTextStyles.heading.copyWith(
+                  fontSize: AppDimensions.fontSize17,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
               ),
             ),
             const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: AppDimensions.spacing8,
+              runSpacing: AppDimensions.spacing8,
               children: [
                 AppStatusBadge(
                   label: '${member.performance.toStringAsFixed(0)}%',
@@ -59,6 +67,7 @@ class TeamMemberCard extends StatelessWidget {
                   ),
                 ),
                 Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(
                       Icons.calendar_month,

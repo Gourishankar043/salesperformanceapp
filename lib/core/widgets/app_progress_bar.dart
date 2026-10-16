@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -30,14 +29,15 @@ class AppProgressBar extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: Stack(
+          fit: StackFit.expand,
           children: [
-            Positioned.fill(
-              child: ColoredBox(color: trackColor),
-            ),
-            FractionallySizedBox(
-              widthFactor: normalizedValue,
+            ColoredBox(color: trackColor),
+            Align(
               alignment: Alignment.centerLeft,
-              child: ColoredBox(color: progressColor),
+              child: FractionallySizedBox(
+                widthFactor: normalizedValue,
+                child: ColoredBox(color: progressColor),
+              ),
             ),
           ],
         ),

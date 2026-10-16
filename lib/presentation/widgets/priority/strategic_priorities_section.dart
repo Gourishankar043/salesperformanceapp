@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -24,23 +23,29 @@ class StrategicPrioritiesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isCompact = screenWidth < 600;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Text(
                 l10n.strategicPriorities,
+                softWrap: true,
                 style: AppTextStyles.sectionTitle.copyWith(
-                  fontSize: AppDimensions.fontSize30,
+                  fontSize: isCompact
+                      ? AppDimensions.fontSize23
+                      : AppDimensions.fontSize30,
                   fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
                 ),
               ),
             ),
+            const SizedBox(width: AppDimensions.spacing8),
             GestureDetector(
               onTap: onEdit,
               child: Container(
@@ -65,6 +70,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
         const SizedBox(height: AppDimensions.spacing4),
         Text(
           l10n.memberFocusDescription(memberName),
+          softWrap: true,
           style: AppTextStyles.body.copyWith(
             fontSize: AppDimensions.fontSize14,
             color: AppColors.muted,
@@ -74,10 +80,14 @@ class StrategicPrioritiesSection extends StatelessWidget {
 
         // Today's priorities.
         AppCard(
-          padding: const EdgeInsets.fromLTRB(
-            AppDimensions.spacing14,
+          padding: EdgeInsets.fromLTRB(
+            isCompact
+                ? AppDimensions.spacing12
+                : AppDimensions.spacing14,
             AppDimensions.spacing20,
-            AppDimensions.spacing14,
+            isCompact
+                ? AppDimensions.spacing12
+                : AppDimensions.spacing14,
             AppDimensions.spacing16,
           ),
           borderRadius: AppDimensions.radiusLarge,
@@ -86,8 +96,11 @@ class StrategicPrioritiesSection extends StatelessWidget {
             children: [
               Text(
                 l10n.todaysPriorities,
+                softWrap: true,
                 style: AppTextStyles.heading.copyWith(
-                  fontSize: AppDimensions.fontSize20,
+                  fontSize: isCompact
+                      ? AppDimensions.fontSize18
+                      : AppDimensions.fontSize20,
                   fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
                 ),
@@ -101,6 +114,8 @@ class StrategicPrioritiesSection extends StatelessWidget {
                   child: Center(
                     child: Text(
                       l10n.noPrioritiesSelected,
+                      textAlign: TextAlign.center,
+                      softWrap: true,
                       style: AppTextStyles.body.copyWith(
                         color: AppColors.textLight,
                       ),
@@ -143,6 +158,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
           ),
           borderRadius: AppDimensions.radiusLarge,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Column(
@@ -150,6 +166,7 @@ class StrategicPrioritiesSection extends StatelessWidget {
                   children: [
                     Text(
                       l10n.prioritiesHistory,
+                      softWrap: true,
                       style: AppTextStyles.heading,
                     ),
                     const SizedBox(
@@ -160,11 +177,13 @@ class StrategicPrioritiesSection extends StatelessWidget {
                         priorities.length,
                         0,
                       ),
+                      softWrap: true,
                       style: AppTextStyles.body,
                     ),
                   ],
                 ),
               ),
+              const SizedBox(width: AppDimensions.spacing8),
               Container(
                 width: AppDimensions.spacing40,
                 height: AppDimensions.spacing40,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -41,71 +40,109 @@ class TimePeriodSelector extends StatelessWidget {
     }
   }
 
+  Widget _buildPeriodItem(
+      BuildContext context,
+      String period,
+      AppLocalizations l10n,
+      ) {
+    final bool isSelected = selectedPeriod == period;
+
+    return GestureDetector(
+      onTap: () => onChanged(period),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeInOut,
+        constraints: const BoxConstraints(
+          minHeight: AppDimensions.spacing36,
+        ),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppDimensions.spacing6,
+          vertical: AppDimensions.spacing4,
+        ),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.white : Colors.transparent,
+          borderRadius: BorderRadius.circular(
+            AppDimensions.radiusPill,
+          ),
+          boxShadow: isSelected
+              ? const [
+            BoxShadow(
+              color: AppColors.shadowStrong,
+              blurRadius: AppDimensions.spacing3,
+              offset: Offset(
+                0,
+                AppDimensions.spacing2 / 2,
+              ),
+            ),
+          ]
+              : null,
+        ),
+        child: Text(
+          _localizedPeriod(period, l10n),
+          textAlign: TextAlign.center,
+          softWrap: true,
+          style: AppTextStyles.caption.copyWith(
+            fontSize: AppDimensions.fontSize12,
+            fontWeight:
+            isSelected ? FontWeight.w700 : FontWeight.w500,
+            color: isSelected
+                ? AppColors.textPrimary
+                : AppColors.muted,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Container(
-      height: AppDimensions.spacing40,
-      padding: const EdgeInsets.all(
-        AppDimensions.spacing4,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.chipBackground,
-        borderRadius: BorderRadius.circular(
-          AppDimensions.radiusPill,
-        ),
-      ),
-      child: Row(
-        children: periods.map((period) {
-          final bool isSelected = selectedPeriod == period;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool useTwoRows = constraints.maxWidth < 320;
 
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => onChanged(period),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                curve: Curves.easeInOut,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? AppColors.white
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(
-                    AppDimensions.spacing18,
-                  ),
-                  boxShadow: isSelected
-                      ? const [
-                    BoxShadow(
-                      color: AppColors.shadowStrong,
-                      blurRadius: AppDimensions.spacing3,
-                      offset: Offset(
-                        0,
-                        AppDimensions.spacing2 / 2,
-                      ),
-                    ),
-                  ]
-                      : null,
-                ),
-                child: Text(
-                  _localizedPeriod(period, l10n),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.caption.copyWith(
-                    fontSize: AppDimensions.fontSize12,
-                    fontWeight: isSelected
-                        ? FontWeight.w700
-                        : FontWeight.w500,
-                    color: isSelected
-                        ? AppColors.textPrimary
-                        : AppColors.muted,
-                  ),
-                ),
-              ),
+        return Container(
+          padding: const EdgeInsets.all(
+            AppDimensions.spacing4,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.chipBackground,
+            borderRadius: BorderRadius.circular(
+              AppDimensions.radiusPill,
             ),
-          );
-        }).toList(),
-      ),
+          ),
+          child: useTwoRows
+              ? Wrap(
+            spacing: AppDimensions.spacing4,
+            runSpacing: AppDimensions.spacing4,
+            children: periods.map((period) {
+              return SizedBox(
+                width: (constraints.maxWidth -
+                    AppDimensions.spacing20) /
+                    2,
+                child: _buildPeriodItem(
+                  context,
+                  period,
+                  l10n,
+                ),
+              );
+            }).toList(),
+          )
+              : Row(
+            children: periods.map((period) {
+              return Expanded(
+                child: _buildPeriodItem(
+                  context,
+                  period,
+                  l10n,
+                ),
+              );
+            }).toList(),
+          ),
+        );
+      },
     );
   }
 }
